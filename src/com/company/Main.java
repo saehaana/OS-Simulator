@@ -1,4 +1,3 @@
-//Ausawin Saehaan
 package com.company;
 
 public class Main {
