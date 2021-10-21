@@ -1,12 +1,13 @@
 //Ausawin Saehaan
 package com.company;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Process();
     }
-    static void Process(){
+    static void Process() throws FileNotFoundException {
         // Scanner scan = new Scanner(System.in);
         // System.out.println("How many processes would you like to create?: ");
         // String process = scan.nextLine();
