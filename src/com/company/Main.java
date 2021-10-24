@@ -5,15 +5,18 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         Process process = new Process();
+
+
         String currLine;
         BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Template1.txt"));
         while((currLine = br.readLine()) != null) {
-            int cycles = 0;
             if(currLine.equals("CALCULATE")){
                 process.setCPU(getRandomNumber(5,100));
+                System.out.println(currLine + " given " + process.getCPU() + " cycles");
             }
             if(currLine.equals("I/O")){
-
+                process.setCPU(getRandomNumber(11,82));
+                System.out.println(currLine + " given " + process.getCPU() + " cycles");
             }
         }
     }
