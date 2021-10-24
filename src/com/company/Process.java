@@ -9,8 +9,8 @@ package com.company;
 public class Process{
     private int CPU;
 
-    public void setCPU(int newCPU){
-        this.CPU = newCPU;
+    public void setCPU(int newCycle){
+        this.CPU = newCycle;
     }
     public int getCPU(){
         return CPU;
