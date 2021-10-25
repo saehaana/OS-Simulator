@@ -16,15 +16,14 @@ Implemented Solutions
 
 To simulate an operating system and its components, the idea of separate java files working together was an ideal approach. Code was encapsulated into separate classes and represented by names such as PCB, Processor, Scheduler, etc. Each class had their own setter and getter methods which was used to manipulate their class's object(s) and return certain I/O.
 
-Process:
-PCB:
-Scheduler:
+Process: 
+
+PCB: Will retrieve and store all information pertaining to OS components; mainly consisting of information about each process e.g., process state
+
+Scheduler: The scheduling algorithm used is the Round Robin (RR) approach. This simulator's RR contains a time quantum of q = 4(ms). Once the first process enters the queue, the scheduler will execute the process for one time quantum. If there are other processes in the queue, then the current process being executed will be preempted and the next process in queue will execute for one time quantum. If no other processes exist but the first in queue, then more time quanta will be given for the process to complete its execution and terminate or return to ready state.  
+
 Critical Section:
 
-Software Requirements
+Software Requirement(s): Latest version of IntelliJ IDE
 
-Latest version of IntelliJ IDE
-
-Hardware Requirements
-
-Working computer
+Hardware Requirement(s): Working computer
