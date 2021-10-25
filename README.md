@@ -14,6 +14,17 @@ The OS simulator was created using IntelliJ IDE and as of right now there is no 
 
 Implemented Solutions
 
+To simulate an operating system and its components, the idea of separate java files working together was an ideal approach. Code was encapsulated into separate classes and represented by names such as PCB, Processor, Scheduler, etc. Each class had their own setter and getter methods which was used to manipulate their class's object(s) and return certain I/O.
+
+Process:
+PCB:
+Scheduler:
+Critical Section:
+
 Software Requirements
 
+Latest version of IntelliJ IDE
+
 Hardware Requirements
+
+Working computer
