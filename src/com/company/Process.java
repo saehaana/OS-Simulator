@@ -22,17 +22,4 @@ public class Process{
     public int getCycle(){
         return Cycle;
     }
-    /**Processes create from templates must also be given process states
-     * States include:
-     *      NEW   - program or process being created or loaded (but not in memory yet)
-     *      READY - program loaded into memory and waiting to run on CPU
-     *      RUN   - instructions being executed
-     *      WAIT  - program waiting for event to occur
-     *      EXIT  - program finished execution on CPU; release resources and leaves memory**/
-    public void setState(String newState){
-        this.State = newState;
-    }
-    public String getState(){
-        return State;
-    }
 }
