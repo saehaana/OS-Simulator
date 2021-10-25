@@ -16,7 +16,9 @@ Implemented Solutions
 
 To simulate an operating system and its components, the idea of separate java files working together was an ideal approach. Code was encapsulated into separate classes and represented by names such as PCB, Processor, Scheduler, etc. Each class had their own setter and getter methods which was used to manipulate their class's object(s) and return certain I/O.
 
-Process: 
+Components
+
+Process: Process component and all the following components below will be manipulated by objects of their class type. As an example, object named process of Process type is created in Main.java and is used to call methods from Process.java. The methods called from Process.java will be used to manipulate the process object as a simulation of what would happen to a real process and processor in an actual operating system environment. When process is created from template, process object will give process operations random cycle lengths decided by method getRandomNumber().
 
 PCB: Will retrieve and store all information pertaining to OS components; mainly consisting of information about each process e.g., process state, pid, CPU registers, etc
 
