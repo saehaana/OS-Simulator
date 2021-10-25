@@ -18,11 +18,11 @@ To simulate an operating system and its components, the idea of separate java fi
 
 Process: 
 
-PCB: Will retrieve and store all information pertaining to OS components; mainly consisting of information about each process e.g., process state
+PCB: Will retrieve and store all information pertaining to OS components; mainly consisting of information about each process e.g., process state, pid, CPU registers, etc
 
 Scheduler: The scheduling algorithm used is the Round Robin (RR) approach. This simulator's RR contains a time quantum of q = 4(ms). Once the first process enters the queue, the scheduler will execute the process for one time quantum. If there are other processes in the queue, then the current process being executed will be preempted and the next process in queue will execute for one time quantum. If no other processes exist but the first in queue, then more time quanta will be given for the process to complete its execution and terminate or return to ready state.  
 
-Critical Section:
+Critical Section: Will also include critical section resolving scheme. This component ensures that shared resources are to be accessed by one process at a time. If one process is executing, then others have to wait to execute in their own critical sections.
 
 Software Requirement(s): Latest version of IntelliJ IDE
 
