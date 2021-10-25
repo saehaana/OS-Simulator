@@ -2,11 +2,11 @@ Summary
 
 This is a semester long project where students are to simulate an operating system by means of a program. Done in any language of choosing, the operating system simulator was worked on in three phases and consisted of four main components.
 
-Phase 1 - Process Management:
+Phase 1 - Process Management: Handling of all resource allocation and scheduling; anything related to CPU and its processes.
 
-Phase 2 - Memory Management:
+Phase 2 - Memory Management: Handling of all memory allocation and deallocation associated with process operations.
 
-Phase 3 - Bonus and GUI:
+Phase 3 - Bonus and GUI: GUI will be implementation of a front end system using javaFX rather than console based print statements used in phase 1 and 2. 
 
 How To Run
 
