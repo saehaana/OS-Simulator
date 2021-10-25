@@ -1,4 +1,5 @@
-/** Will retrieve and store information about and from other OS components**/
+/**Will retrieve and store information about and from other OS components
+ * Information about each process to be stored in Process Control Block (PCB)**/
 
 package com.company;
 
