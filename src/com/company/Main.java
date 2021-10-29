@@ -43,117 +43,135 @@ public class Main {
         System.out.println("0: Quit");
         while(scanner.hasNextInt()){
             menuSelection = scanner.nextInt();
-            switch(menuSelection){
-                case 0:
+            switch (menuSelection) {
+                case 0 -> {
                     System.out.println("Goodbye!");
                     return; //breaks while loop
-                case 1:
+                }
+                case 1 -> {
                     System.out.println("You chose option 1");
-                    System.out.println("Select different programs you would like to load from the list below:");
-                    System.out.println("Calculator," + " Game," + " Microsoft Word," + " Storage");
+                    System.out.println("Select different programs you would like to load from the list below by typing the program name");
+                    System.out.println("To run a program type 'run *program* (ignore ' and * characters)");
+                    System.out.println("To minimize a program type 'min *program* (ignore ' and * characters)");
+                    System.out.println("To close a program type 'close *program* (ignore ' and * characters)");
+                    System.out.println("------------------------------------------------------------");
                     System.out.println("Programs: ");
-                    while(scanner.hasNextLine()){
-                            String processName = scanner.nextLine();
-                            //different operations with cycles given based on program user selects
-                            if(processName.equalsIgnoreCase("Calculator")){
-                                pcbCalculator.setState("NEW");
-                                while((currLine = brCalculator.readLine()) != null) {
-                                    if(currLine.equals("CALCULATE")){
-                                        process.setCycle(getRandomNumber(5,100));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                    if(currLine.equals("I/O")){
-                                        process.setCycle(getRandomNumber(11,82));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                }
-                            }
-                            if(processName.equalsIgnoreCase("Game")){
-                                pcbGame.setState("NEW");
-                                while((currLine = brGame.readLine()) != null) {
-                                    if(currLine.equals("CALCULATE")){
-                                        process.setCycle(getRandomNumber(5,100));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                    if(currLine.equals("I/O")){
-                                        process.setCycle(getRandomNumber(11,82));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                }
-                            }
-                            if(processName.equalsIgnoreCase("Microsoft Word")){
-                                pcbMicrosoftWord .setState("NEW");
-                                while((currLine = brMicrosoftWord.readLine()) != null) {
-                                    if(currLine.equals("CALCULATE")){
-                                        process.setCycle(getRandomNumber(5,100));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                    if(currLine.equals("I/O")){
-                                        process.setCycle(getRandomNumber(11,82));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                }
-                            }
-                            if(processName.equalsIgnoreCase("Storage")){
-                                pcbStorage.setState("NEW");
-                                while((currLine = brStorage.readLine()) != null) {
-                                    if(currLine.equals("CALCULATE")){
-                                        process.setCycle(getRandomNumber(5,100));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                    if(currLine.equals("I/O")){
-                                        process.setCycle(getRandomNumber(11,82));
-                                        System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    }
-                                }
-                            }
-                            if(processName.equalsIgnoreCase("close calculator")){
-                                pcbCalculator.setState(null);
-                                System.out.println("Calculator closed");
-                            }
-                            if(processName.equalsIgnoreCase("close game")){
-                                pcbGame.setState(null);
-                                System.out.println("Game closed");
-                            }
-                            if(processName.equalsIgnoreCase("close microsoft word")){
-                                pcbMicrosoftWord.setState(null);
-                                System.out.println("Microsoft word closed");
-                            }
-                            if(processName.equalsIgnoreCase("close storage")){
-                                pcbStorage.setState(null);
-                                System.out.println("Storage closed");
-                            }
-                        if(processName.equalsIgnoreCase("return")){
-                                System.out.println("Returning to main menu...\n");
-                                System.out.println("Choose any of the options below by pressing the corresponding number");
-                                System.out.println("1: Open applications");
-                                System.out.println("2: Check process states");
-                                System.out.println("3: Check PCB components");
-                                System.out.println("4: Check something else");
-                                System.out.println("0: Quit");
-                                break;
-                            }
-                        }
-                    break;
-                case 2:
-                    System.out.println("You chose option 2");
-                    System.out.println("Which application's process state would you like to check?");
-                    while(scanner.hasNextLine()) {
+                    System.out.println("Calculator," + " Game," + " Microsoft Word," + " Storage");
+                    while (scanner.hasNextLine()) {
                         String processName = scanner.nextLine();
+                        //application process states set to new
+                        //different operations with cycles given based on program user selects
+                        if (processName.equalsIgnoreCase("Calculator")) {
+                            pcbCalculator.setState("NEW");
+                            while ((currLine = brCalculator.readLine()) != null) {
+                                if (currLine.equals("CALCULATE")) {
+                                    process.setCycle(getRandomNumber(5, 100));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                                if (currLine.equals("I/O")) {
+                                    process.setCycle(getRandomNumber(11, 82));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                            }
+                        }
+                        if (processName.equalsIgnoreCase("Game")) {
+                            pcbGame.setState("NEW");
+                            while ((currLine = brGame.readLine()) != null) {
+                                if (currLine.equals("CALCULATE")) {
+                                    process.setCycle(getRandomNumber(5, 100));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                                if (currLine.equals("I/O")) {
+                                    process.setCycle(getRandomNumber(11, 82));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                            }
+                        }
+                        if (processName.equalsIgnoreCase("Microsoft Word")) {
+                            pcbMicrosoftWord.setState("NEW");
+                            while ((currLine = brMicrosoftWord.readLine()) != null) {
+                                if (currLine.equals("CALCULATE")) {
+                                    process.setCycle(getRandomNumber(5, 100));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                                if (currLine.equals("I/O")) {
+                                    process.setCycle(getRandomNumber(11, 82));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                            }
+                        }
+                        if (processName.equalsIgnoreCase("Storage")) {
+                            pcbStorage.setState("NEW");
+                            while ((currLine = brStorage.readLine()) != null) {
+                                if (currLine.equals("CALCULATE")) {
+                                    process.setCycle(getRandomNumber(5, 100));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                                if (currLine.equals("I/O")) {
+                                    process.setCycle(getRandomNumber(11, 82));
+                                    System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                }
+                            }
+                        }
 
-                        if(processName.equalsIgnoreCase("Calculator")){
-                            System.out.println("Process state of " + processName + " is: " + pcbCalculator.getState());
+                        // run program
+                        // executes calculate and i/o instructions of an application's process
+                        if (processName.equalsIgnoreCase("run calculator")) {
+                            pcbCalculator.setState("RUNNING");
+                            System.out.println("Running calculator...");
                         }
-                        if(processName.equalsIgnoreCase("Game")){
-                            System.out.println("Process state of " + processName + " is: " + pcbGame.getState());
+                        if (processName.equalsIgnoreCase("run game")) {
+                            pcbGame.setState("RUNNING");
+                            System.out.println("Running game...");
                         }
-                        if(processName.equalsIgnoreCase("Microsoft Word")){
-                            System.out.println("Process state of " + processName + " is: " + pcbMicrosoftWord.getState());
+                        if (processName.equalsIgnoreCase("run microsoft word")) {
+                            pcbMicrosoftWord.setState("RUNNING");
+                            System.out.println("Running microsoft word...");
                         }
-                        if(processName.equalsIgnoreCase("Storage")){
-                            System.out.println("Process state of " + processName + " is: " + pcbStorage.getState());
+                        if (processName.equalsIgnoreCase("run storage")) {
+                            pcbStorage.setState("RUNNING");
+                            System.out.println("Running storage...");
                         }
-                        if(processName.equalsIgnoreCase("return")) {
+
+                        // minimize program
+                        // puts application's process in waiting state
+                        if (processName.equalsIgnoreCase("min calculator")) {
+                            pcbCalculator.setState("WAITING");
+                            System.out.println("Calculator minimized");
+                        }
+                        if (processName.equalsIgnoreCase("min game")) {
+                            pcbGame.setState("WAITING");
+                            System.out.println("Game minimized");
+                        }
+                        if (processName.equalsIgnoreCase("min microsoft word")) {
+                            pcbMicrosoftWord.setState("WAITING");
+                            System.out.println("Microsoft word minimized");
+                        }
+                        if (processName.equalsIgnoreCase("min storage")) {
+                            pcbStorage.setState("WAITING");
+                            System.out.println("Storage minimized");
+                        }
+
+                        // close program
+                        // terminates and/or exits application's process
+                        if (processName.equalsIgnoreCase("close calculator")) {
+                            pcbCalculator.setState(null);
+                            System.out.println("Calculator closed");
+                        }
+                        if (processName.equalsIgnoreCase("close game")) {
+                            pcbGame.setState(null);
+                            System.out.println("Game closed");
+                        }
+                        if (processName.equalsIgnoreCase("close microsoft word")) {
+                            pcbMicrosoftWord.setState(null);
+                            System.out.println("Microsoft word closed");
+                        }
+                        if (processName.equalsIgnoreCase("close storage")) {
+                            pcbStorage.setState(null);
+                            System.out.println("Storage closed");
+                        }
+
+                        if (processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
                             System.out.println("Choose any of the options below by pressing the corresponding number");
                             System.out.println("1: Open applications");
@@ -164,16 +182,43 @@ public class Main {
                             break;
                         }
                     }
-                    break;
-                case 3:
+                }
+                case 2 -> {
+                    System.out.println("You chose option 2");
+                    System.out.println("Which application's process state would you like to check?");
+                    while (scanner.hasNextLine()) {
+                        String processName = scanner.nextLine();
+
+                        if (processName.equalsIgnoreCase("Calculator")) {
+                            System.out.println("Process state of " + processName + " is: " + pcbCalculator.getState());
+                        }
+                        if (processName.equalsIgnoreCase("Game")) {
+                            System.out.println("Process state of " + processName + " is: " + pcbGame.getState());
+                        }
+                        if (processName.equalsIgnoreCase("Microsoft Word")) {
+                            System.out.println("Process state of " + processName + " is: " + pcbMicrosoftWord.getState());
+                        }
+                        if (processName.equalsIgnoreCase("Storage")) {
+                            System.out.println("Process state of " + processName + " is: " + pcbStorage.getState());
+                        }
+                        if (processName.equalsIgnoreCase("return")) {
+                            System.out.println("Returning to main menu...\n");
+                            System.out.println("Choose any of the options below by pressing the corresponding number");
+                            System.out.println("1: Open applications");
+                            System.out.println("2: Check process states");
+                            System.out.println("3: Check PCB components");
+                            System.out.println("4: Check something else");
+                            System.out.println("0: Quit");
+                            break;
+                        }
+                    }
+                }
+                case 3 -> {
                     System.out.println("You chose option 3");
                     System.out.println("Which PCB component would you like to check?");
-                    break;
-                case 4:
-                    System.out.println("You chose option 4");
-                    break;
-                default:
-                    System.out.println("No such choice");
+                }
+                case 4 -> System.out.println("You chose option 4");
+                default -> System.out.println("No such choice");
             }
         }
 
