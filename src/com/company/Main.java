@@ -5,12 +5,8 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        //class objects
-        Scanner scanner = new Scanner(System.in);
+        //Process class objects
         Process process = new Process();
-        PCB pcb = new PCB();
-        CriticalSection cs = new CriticalSection();
-        Scheduler scheduler = new Scheduler();
 
         //PCB class objects
         PCB pcbCalculator = new PCB();
@@ -18,11 +14,18 @@ public class Main {
         PCB pcbMicrosoftWord = new PCB();
         PCB pcbStorage = new PCB();
 
-        //variables
+        //Critical Section class objects
+        CriticalSection criticalSection = new CriticalSection();
+
+        //Scheduler class objects
+        Scheduler scheduler = new Scheduler();
+
+        //Variables and scanner class object
+        Scanner scanner = new Scanner(System.in);
         String currLine;
         int menuSelection;
 
-        //template files
+        //Template files
         BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
         BufferedReader brGame = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
         BufferedReader brMicrosoftWord = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
@@ -33,7 +36,7 @@ public class Main {
         System.out.println("****************************************");
         System.out.println("Choose any of the options below by pressing the corresponding number");
         System.out.println("Once you've entered an option, type 'return' to go back to main menu");
-        System.out.println("1: Open applications");
+        System.out.println("1: Applications");
         System.out.println("2: Check process states");
         System.out.println("3: Check PCB components");
         System.out.println("4: Check something else");
@@ -46,7 +49,7 @@ public class Main {
                     return; //breaks while loop
                 case 1:
                     System.out.println("You chose option 1");
-                    System.out.println("Select up to 2 different programs you would like to run from list below:");
+                    System.out.println("Select different programs you would like to load from the list below:");
                     System.out.println("Calculator," + " Game," + " Microsoft Word," + " Storage");
                     System.out.println("Programs: ");
                     while(scanner.hasNextLine()){
@@ -104,7 +107,23 @@ public class Main {
                                     }
                                 }
                             }
-                            if(processName.equalsIgnoreCase("return")){
+                            if(processName.equalsIgnoreCase("close calculator")){
+                                pcbCalculator.setState(null);
+                                System.out.println("Calculator closed");
+                            }
+                            if(processName.equalsIgnoreCase("close game")){
+                                pcbGame.setState(null);
+                                System.out.println("Game closed");
+                            }
+                            if(processName.equalsIgnoreCase("close microsoft word")){
+                                pcbMicrosoftWord.setState(null);
+                                System.out.println("Microsoft word closed");
+                            }
+                            if(processName.equalsIgnoreCase("close storage")){
+                                pcbStorage.setState(null);
+                                System.out.println("Storage closed");
+                            }
+                        if(processName.equalsIgnoreCase("return")){
                                 System.out.println("Returning to main menu...\n");
                                 System.out.println("Choose any of the options below by pressing the corresponding number");
                                 System.out.println("1: Open applications");
@@ -114,9 +133,6 @@ public class Main {
                                 System.out.println("0: Quit");
                                 break;
                             }
-                            //if((!(processName.equalsIgnoreCase("calculator")) || (!(processName.equalsIgnoreCase("game")))) || (!(processName.equalsIgnoreCase("microsoft word"))) || (!(processName.equalsIgnoreCase("storage"))) || (!(processName.equalsIgnoreCase("return")))) {
-                            //    System.out.println("Unknown option, try again");
-                            //}
                         }
                     break;
                 case 2:
@@ -128,16 +144,16 @@ public class Main {
                         if(processName.equalsIgnoreCase("Calculator")){
                             System.out.println("Process state of " + processName + " is: " + pcbCalculator.getState());
                         }
-                        else if(processName.equalsIgnoreCase("Game")){
+                        if(processName.equalsIgnoreCase("Game")){
                             System.out.println("Process state of " + processName + " is: " + pcbGame.getState());
                         }
-                        else if(processName.equalsIgnoreCase("Microsoft Word")){
+                        if(processName.equalsIgnoreCase("Microsoft Word")){
                             System.out.println("Process state of " + processName + " is: " + pcbMicrosoftWord.getState());
                         }
-                        else if(processName.equalsIgnoreCase("Storage")){
+                        if(processName.equalsIgnoreCase("Storage")){
                             System.out.println("Process state of " + processName + " is: " + pcbStorage.getState());
                         }
-                        else if(processName.equalsIgnoreCase("return")) {
+                        if(processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
                             System.out.println("Choose any of the options below by pressing the corresponding number");
                             System.out.println("1: Open applications");
@@ -146,9 +162,6 @@ public class Main {
                             System.out.println("4: Check something else");
                             System.out.println("0: Quit");
                             break;
-                        }
-                        else{
-                            System.out.println("Please enter one of the listed applications you would like to check their processes' state for...or check your spelling");
                         }
                     }
                     break;

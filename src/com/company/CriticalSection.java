@@ -9,3 +9,12 @@ public class CriticalSection{
     }
 
 }
+/**wait() and signal()
+ wait(int m_semaphore){
+ while(m_semaphore <= 0);
+ m_semaphore--;
+ }
+ do critical section stuff
+ signal(int m_semaphore){
+ m_semaphore++;
+ }**/
