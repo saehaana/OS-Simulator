@@ -11,15 +11,9 @@
 package com.company;
 
 public class PCB{
-    private int pid;
     private String State;
+    private int pid;
 
-    public void setPid(){
-        this.pid = pid;
-    }
-    public int getPid(){
-        return pid;
-    }
     /**Processes create from templates must also be given process states
      * States include:
      *      NEW   - program or process being created or loaded (but not in memory yet)
@@ -32,6 +26,13 @@ public class PCB{
     }
     public String getState(){
         return State;
+    }
+
+    public void setPid(){
+        this.pid = pid;
+    }
+    public int getPid(){
+        return pid;
     }
 }
 

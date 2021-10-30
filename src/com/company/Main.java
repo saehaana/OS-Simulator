@@ -1,5 +1,7 @@
 //Ausawin Saehaan
 package com.company;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -24,6 +26,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String currLine;
         int menuSelection;
+        List<String> arrayList = new ArrayList<String>();
 
         //Template files
         BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
@@ -38,7 +41,7 @@ public class Main {
         System.out.println("Once you've entered an option, type 'return' to go back to main menu");
         System.out.println("1: Applications");
         System.out.println("2: Check process states");
-        System.out.println("3: Check PCB components");
+        System.out.println("3: Check queue(s)");
         System.out.println("4: Check something else");
         System.out.println("0: Quit");
         while(scanner.hasNextInt()){
@@ -62,6 +65,13 @@ public class Main {
                         //application process states set to new
                         //different operations with cycles given based on program user selects
                         if (processName.equalsIgnoreCase("Calculator")) {
+                            System.out.println("How many processes would you like to create?");
+                            int numProcesses = scanner.nextInt();
+                            System.out.println(numProcesses + " processes created");
+                            for(int i=1;i<=numProcesses;i++){
+                                System.out.println("Process " + i + " given operations..");
+                            }
+                            System.out.println("------------------------------");
                             pcbCalculator.setState("NEW");
                             while ((currLine = brCalculator.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
@@ -75,6 +85,13 @@ public class Main {
                             }
                         }
                         if (processName.equalsIgnoreCase("Game")) {
+                            System.out.println("How many processes would you like to create?");
+                            int numProcesses = scanner.nextInt();
+                            System.out.println(numProcesses + " processes created");
+                            for(int i=1;i<=numProcesses;i++){
+                                System.out.println("Process " + i + " given operations..");
+                            }
+                            System.out.println("------------------------------");
                             pcbGame.setState("NEW");
                             while ((currLine = brGame.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
@@ -88,6 +105,13 @@ public class Main {
                             }
                         }
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
+                            System.out.println("How many processes would you like to create?");
+                            int numProcesses = scanner.nextInt();
+                            System.out.println(numProcesses + " processes created");
+                            for(int i=1;i<=numProcesses;i++){
+                                System.out.println("Process " + i + " given operations..");
+                            }
+                            System.out.println("------------------------------");
                             pcbMicrosoftWord.setState("NEW");
                             while ((currLine = brMicrosoftWord.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
@@ -101,6 +125,13 @@ public class Main {
                             }
                         }
                         if (processName.equalsIgnoreCase("Storage")) {
+                            System.out.println("How many processes would you like to create?");
+                            int numProcesses = scanner.nextInt();
+                            System.out.println(numProcesses + " processes created");
+                            for(int i=1;i<=numProcesses;i++){
+                                System.out.println("Process " + i + " given operations..");
+                            }
+                            System.out.println("------------------------------");
                             pcbStorage.setState("NEW");
                             while ((currLine = brStorage.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
@@ -204,7 +235,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
                             System.out.println("Choose any of the options below by pressing the corresponding number");
-                            System.out.println("1: Open applications");
+                            System.out.println("1: Applications");
                             System.out.println("2: Check process states");
                             System.out.println("3: Check PCB components");
                             System.out.println("4: Check something else");
@@ -215,10 +246,8 @@ public class Main {
                 }
                 case 3 -> {
                     System.out.println("You chose option 3");
-                    System.out.println("Which PCB component would you like to check?");
+                    System.out.println("Which queue would you like to check?");
                 }
-                case 4 -> System.out.println("You chose option 4");
-                default -> System.out.println("No such choice");
             }
         }
 
