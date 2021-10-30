@@ -93,7 +93,10 @@ public class Main {
                             int numProcesses = scanner.nextInt();
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
-                                System.out.println("Process " + i + " given operations..");
+                                System.out.println("Process " + i + " given pid..");
+                                pcbGame.setPid(getRandomNumber(0,100));
+                                System.out.println(pcbGame.getPid());
+                                processList.add(pcbGame.getPid());
                             }
                             System.out.println("------------------------------");
                             pcbGame.setState("NEW");
@@ -113,7 +116,10 @@ public class Main {
                             int numProcesses = scanner.nextInt();
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
-                                System.out.println("Process " + i + " given operations..");
+                                System.out.println("Process " + i + " given pid..");
+                                pcbMicrosoftWord.setPid(getRandomNumber(0,100));
+                                System.out.println(pcbMicrosoftWord.getPid());
+                                processList.add(pcbMicrosoftWord.getPid());
                             }
                             System.out.println("------------------------------");
                             pcbMicrosoftWord.setState("NEW");
@@ -133,7 +139,10 @@ public class Main {
                             int numProcesses = scanner.nextInt();
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
-                                System.out.println("Process " + i + " given operations..");
+                                System.out.println("Process " + i + " given pid..");
+                                pcbStorage.setPid(getRandomNumber(0,100));
+                                System.out.println(pcbStorage.getPid());
+                                processList.add(pcbStorage.getPid());
                             }
                             System.out.println("------------------------------");
                             pcbStorage.setState("NEW");
