@@ -26,7 +26,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String currLine;
         int menuSelection;
-        List<String> arrayList = new ArrayList<String>();
+        List<Integer> processList = new ArrayList<Integer>();
 
         //Template files
         BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
@@ -69,9 +69,13 @@ public class Main {
                             int numProcesses = scanner.nextInt();
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
-                                System.out.println("Process " + i + " given operations..");
+                                System.out.println("Process " + i + " given pid..");
+                                pcbCalculator.setPid(getRandomNumber(0,100));
+                                System.out.println(pcbCalculator.getPid());
+                                processList.add(pcbCalculator.getPid());
                             }
                             System.out.println("------------------------------");
+                            System.out.println("Operations for given processes are: ");
                             pcbCalculator.setState("NEW");
                             while ((currLine = brCalculator.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
@@ -221,6 +225,7 @@ public class Main {
                         String processName = scanner.nextLine();
 
                         if (processName.equalsIgnoreCase("Calculator")) {
+                            //PCB.getPid();
                             System.out.println("Process state of " + processName + " is: " + pcbCalculator.getState());
                         }
                         if (processName.equalsIgnoreCase("Game")) {

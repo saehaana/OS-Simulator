@@ -11,8 +11,8 @@
 package com.company;
 
 public class PCB{
+    private static int pid;
     private String State;
-    private int pid;
 
     /**Processes create from templates must also be given process states
      * States include:
@@ -28,8 +28,9 @@ public class PCB{
         return State;
     }
 
-    public void setPid(){
-        this.pid = pid;
+    public int setPid(int newPid){
+        this.pid = newPid;
+        return newPid;
     }
     public int getPid(){
         return pid;
