@@ -22,11 +22,18 @@ public class Main {
         //Scheduler class objects
         Scheduler scheduler = new Scheduler();
 
-        //Variables and scanner class object
+        //Other variables and objects
         Scanner scanner = new Scanner(System.in);
         String currLine;
         int menuSelection;
-        List<Integer> processList = new ArrayList<Integer>();
+        List<Integer> calculatorPidList = new ArrayList<Integer>();
+        List<Integer> gamePidList = new ArrayList<Integer>();
+        List<Integer> microsoftwordPidList = new ArrayList<Integer>();
+        List<Integer> storagePidList = new ArrayList<Integer>();
+        List<Integer> totalList = new ArrayList<Integer>();
+
+        List<String> processStateList = new ArrayList<String>();
+
 
         //Template files
         BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
@@ -70,13 +77,14 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbCalculator.setPid(getRandomNumber(0,100));
+                                pcbCalculator.setPid(getRandomNumber(1,100));
+                                pcbCalculator.setState("NEW");
                                 System.out.println(pcbCalculator.getPid());
-                                processList.add(pcbCalculator.getPid());
+                                calculatorPidList.add(pcbCalculator.getPid());
+                                processStateList.add(pcbCalculator.getState());
                             }
                             System.out.println("------------------------------");
                             System.out.println("Operations for given processes are: ");
-                            pcbCalculator.setState("NEW");
                             while ((currLine = brCalculator.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -87,6 +95,8 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
+                        System.out.println("Current pid list is: " + calculatorPidList);
+                        System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Game")) {
                             System.out.println("How many processes would you like to create?");
@@ -94,9 +104,11 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbGame.setPid(getRandomNumber(0,100));
+                                pcbGame.setPid(getRandomNumber(1,100));
+                                pcbGame.setState("NEW");
                                 System.out.println(pcbGame.getPid());
-                                processList.add(pcbGame.getPid());
+                                gamePidList.add(pcbGame.getPid());
+                                processStateList.add(pcbGame.getState());
                             }
                             System.out.println("------------------------------");
                             pcbGame.setState("NEW");
@@ -110,6 +122,8 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
+                            System.out.println("Current process list is: " + gamePidList);
+                            System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
                             System.out.println("How many processes would you like to create?");
@@ -117,9 +131,11 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbMicrosoftWord.setPid(getRandomNumber(0,100));
+                                pcbMicrosoftWord.setPid(getRandomNumber(1,100));
+                                pcbMicrosoftWord.setState("NEW");
                                 System.out.println(pcbMicrosoftWord.getPid());
-                                processList.add(pcbMicrosoftWord.getPid());
+                                microsoftwordPidList.add(pcbMicrosoftWord.getPid());
+                                processStateList.add(pcbMicrosoftWord.getState());
                             }
                             System.out.println("------------------------------");
                             pcbMicrosoftWord.setState("NEW");
@@ -133,6 +149,8 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
+                            System.out.println("Current process list is: " + microsoftwordPidList);
+                            System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Storage")) {
                             System.out.println("How many processes would you like to create?");
@@ -140,9 +158,11 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbStorage.setPid(getRandomNumber(0,100));
+                                pcbStorage.setPid(getRandomNumber(1,100));
+                                pcbStorage.setState("NEW");
                                 System.out.println(pcbStorage.getPid());
-                                processList.add(pcbStorage.getPid());
+                                storagePidList.add(pcbStorage.getPid());
+                                processStateList.add(pcbStorage.getState());
                             }
                             System.out.println("------------------------------");
                             pcbStorage.setState("NEW");
@@ -156,6 +176,8 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
+                            System.out.println("Current process list is: " + storagePidList);
+                            System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
 
                         // run program
@@ -227,24 +249,55 @@ public class Main {
                         }
                     }
                 }
+
                 case 2 -> {
                     System.out.println("You chose option 2");
                     System.out.println("Which application's process state would you like to check?");
                     while (scanner.hasNextLine()) {
                         String processName = scanner.nextLine();
-
-                        if (processName.equalsIgnoreCase("Calculator")) {
-                            //PCB.getPid();
-                            System.out.println("Process state of " + processName + " is: " + pcbCalculator.getState());
+                        if(processName.equalsIgnoreCase("Calculator")) {
+                            if(!(calculatorPidList.isEmpty())) {
+                                for(int i=0;i<calculatorPidList.size();i++){
+                                    System.out.println("Process state of pid " + calculatorPidList.get(i).toString() + " is " + pcbCalculator.getState());
+                                }
+                            System.out.println("Enter another application or return to menu: ");
+                            }else{
+                                System.out.println("Application's processes not found");
+                                System.out.println("Enter loaded application or go back to option 1 in main menu");
+                            }
                         }
                         if (processName.equalsIgnoreCase("Game")) {
-                            System.out.println("Process state of " + processName + " is: " + pcbGame.getState());
+                            if(!(gamePidList.isEmpty())){
+                                for(int i=0;i<gamePidList.size();i++) {
+                                    System.out.println("Process state of pid " + gamePidList.get(i).toString() + " is " + pcbGame.getState());
+                                }
+                            System.out.println("Enter another application or return to menu: ");
+                            }else{
+                                System.out.println("Application's processes not found");
+                                System.out.println("Enter loaded application or go back to option 1 in main menu");
+                            }
                         }
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
-                            System.out.println("Process state of " + processName + " is: " + pcbMicrosoftWord.getState());
+                            if(!(microsoftwordPidList.isEmpty())){
+                                for(int i=0;i<microsoftwordPidList.size();i++){
+                                    System.out.println("Process state of pid " + microsoftwordPidList.get(i).toString() + " is " + pcbMicrosoftWord.getState());
+                                }
+                            System.out.println("Enter another application or return to menu: ");
+                            }else{
+                                System.out.println("Application's processes not found");
+                                System.out.println("Enter loaded application or go back to option 1 in main menu");
+                            }
                         }
                         if (processName.equalsIgnoreCase("Storage")) {
-                            System.out.println("Process state of " + processName + " is: " + pcbStorage.getState());
+                            if(!(storagePidList.isEmpty())){
+                                for(int i=0;i<storagePidList.size();i++){
+                                    System.out.println("Process state of pid " + storagePidList.get(i).toString() + " is " + pcbStorage.getState());
+                                }
+                            System.out.println("Enter another application or return to menu: ");
+                            }else{
+                                System.out.println("Application's processes not found");
+                                System.out.println("Enter loaded application or go back to option 1 in main menu");
+                            }
                         }
                         if (processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
