@@ -26,11 +26,13 @@ public class Main {
         String currLine;
         int menuSelection;
         Scanner scanner = new Scanner(System.in);
+        //ArrayList<String> operations= new ArrayList<String>();
 
         List<Integer> calculatorPidList = new ArrayList<>();
         List<Integer> gamePidList = new ArrayList<>();
         List<Integer> microsoftwordPidList = new ArrayList<>();
         List<Integer> storagePidList = new ArrayList<>();
+        List<Integer> totalPidList = new ArrayList<>();
 
         List<String> calculatorStateList = new ArrayList<>();
         List<String> gameStateList = new ArrayList<>();
@@ -71,6 +73,7 @@ public class Main {
                     System.out.println("Calculator," + " Game," + " Microsoft Word," + " Storage");
                     while (scanner.hasNextLine()) {
                         String processName = scanner.nextLine();
+
                         //application process states set to new
                         //different operations with cycles given based on program user selects
                         if (processName.equalsIgnoreCase("Calculator")) {
@@ -89,15 +92,19 @@ public class Main {
                             System.out.println("Operations for given processes are: ");
                             while ((currLine = brCalculator.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
-                                    process.setCycle(getRandomNumber(5, 100));
+                                    process.setCycle(getRandomNumber(5,100));
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                    //operations.add(currLine);
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
+                                    //operations.add(currLine);
                                 }
                             }
-                        System.out.println("Current pid list is: " + calculatorPidList);
+                            //for(int i=0;i<operations.size();i++) {
+                            //    System.out.println(operations.get(i) + " given " + process.getCycle() + " cycles");
+                            //}
                         System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Game")) {
@@ -113,7 +120,6 @@ public class Main {
                                 gameStateList.add(pcbGame.getState());
                             }
                             System.out.println("------------------------------");
-                            pcbGame.setState("NEW");
                             while ((currLine = brGame.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -124,7 +130,6 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
-                            System.out.println("Current process list is: " + gamePidList);
                             System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
@@ -140,7 +145,6 @@ public class Main {
                                 microsoftwordStateList.add(pcbMicrosoftWord.getState());
                             }
                             System.out.println("------------------------------");
-                            pcbMicrosoftWord.setState("NEW");
                             while ((currLine = brMicrosoftWord.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -151,7 +155,6 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
-                            System.out.println("Current process list is: " + microsoftwordPidList);
                             System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Storage")) {
@@ -167,7 +170,6 @@ public class Main {
                                 storageStateList.add(pcbStorage.getState());
                             }
                             System.out.println("------------------------------");
-                            pcbStorage.setState("NEW");
                             while ((currLine = brStorage.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -178,7 +180,6 @@ public class Main {
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
-                            System.out.println("Current process list is: " + storagePidList);
                             System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
 
@@ -186,6 +187,7 @@ public class Main {
                         // executes calculate and i/o instructions of an application's process
                         if (processName.equalsIgnoreCase("run calculator")) {
                             pcbCalculator.setState("RUNNING");
+                            storageStateList.add(pcbCalculator.getState());
                             System.out.println("Running calculator...");
                         }
                         if (processName.equalsIgnoreCase("run game")) {
@@ -314,8 +316,11 @@ public class Main {
                     }
                 }
                 case 3 -> {
-                    System.out.println("You chose option 3");
-                    System.out.println("Which queue would you like to check?");
+                    totalPidList.addAll(calculatorPidList);
+                    totalPidList.addAll(gamePidList);
+                    totalPidList.addAll(microsoftwordPidList);
+                    totalPidList.addAll(storagePidList);
+                    System.out.println(totalPidList);
                 }
             }
         }
