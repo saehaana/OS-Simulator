@@ -17,14 +17,6 @@ public class CriticalSection{
             mutex.release();
         }
     }
-
-    public void lock(){
-
-    }
-    public void unlock(){
-
-    }
-
 }
 /**wait() and signal()
 

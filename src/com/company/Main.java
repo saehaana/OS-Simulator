@@ -29,6 +29,7 @@ public class Main {
         String currLine;
         int menuSelection;
         ArrayList<Integer> burstTime = new ArrayList<>();
+        ArrayList<Integer> waitTime = new ArrayList<>();
         ArrayList<Integer> readyQueue = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         //ArrayList<String> operations= new ArrayList<String>();
@@ -99,19 +100,12 @@ public class Main {
                                     process.setCycle(getRandomNumber(5,100));
                                     burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    //operations.add(currLine);
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
-                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
-                                    //operations.add(currLine);
                                 }
                             }
-                            System.out.println(burstTime);
-                            //for(int i=0;i<operations.size();i++) {
-                            //    System.out.println(operations.get(i) + " given " + process.getCycle() + " cycles");
-                            //}
                         System.out.println("Return to menu by typing 'return' or load another application by typing its name");
                         }
                         if (processName.equalsIgnoreCase("Game")) {
@@ -135,7 +129,6 @@ public class Main {
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
-                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -157,6 +150,7 @@ public class Main {
                             while ((currLine = brMicrosoftWord.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
@@ -182,6 +176,7 @@ public class Main {
                             while ((currLine = brStorage.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
