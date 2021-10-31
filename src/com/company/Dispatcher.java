@@ -1,7 +1,10 @@
 package com.company;
 
-/**Runs after scheduler selects process; dispatcher takes selected process to desired state/queue; gives process control of CPU**/
+/**Dispatcher - runs after scheduler selects process
+ *              dispatcher removes selected process from ready queue and goes to desired state/queue
+ *              gives process control of CPU**/
 
 public class Dispatcher {
+
 
 }

@@ -22,9 +22,14 @@ public class Main {
         //Scheduler class objects
         Scheduler scheduler = new Scheduler();
 
+        //Dispatcher class objects
+        Dispatcher dispatcher = new Dispatcher();
+
         //Other variables and objects
         String currLine;
         int menuSelection;
+        ArrayList<Integer> burstTime = new ArrayList<>();
+        ArrayList<Integer> readyQueue = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         //ArrayList<String> operations= new ArrayList<String>();
 
@@ -32,7 +37,6 @@ public class Main {
         List<Integer> gamePidList = new ArrayList<>();
         List<Integer> microsoftwordPidList = new ArrayList<>();
         List<Integer> storagePidList = new ArrayList<>();
-        List<Integer> totalPidList = new ArrayList<>();
 
         List<String> calculatorStateList = new ArrayList<>();
         List<String> gameStateList = new ArrayList<>();
@@ -50,9 +54,9 @@ public class Main {
         System.out.println("****************************************");
         System.out.println("Choose any of the options below by pressing the corresponding number");
         System.out.println("Once you've entered an option, type 'return' to go back to main menu");
-        System.out.println("1: Applications");
-        System.out.println("2: Check process states");
-        System.out.println("3: Check queue(s)");
+        System.out.println("1: Load Applications");
+        System.out.println("2: Process state status");
+        System.out.println("3: Run Scheduler");
         System.out.println("4: Check something else");
         System.out.println("0: Quit");
         while(scanner.hasNextInt()){
@@ -93,15 +97,18 @@ public class Main {
                             while ((currLine = brCalculator.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5,100));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                     //operations.add(currLine);
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                     //operations.add(currLine);
                                 }
                             }
+                            System.out.println(burstTime);
                             //for(int i=0;i<operations.size();i++) {
                             //    System.out.println(operations.get(i) + " given " + process.getCycle() + " cycles");
                             //}
@@ -123,10 +130,12 @@ public class Main {
                             while ((currLine = brGame.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
+                                    burstTime.addAll(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -186,8 +195,8 @@ public class Main {
                         // run program
                         // executes calculate and i/o instructions of an application's process
                         if (processName.equalsIgnoreCase("run calculator")) {
-                            pcbCalculator.setState("RUNNING");
-                            storageStateList.add(pcbCalculator.getState());
+                            //pcbCalculator.setState("RUNNING");
+                            //storageStateList.add(pcbCalculator.getState());
                             System.out.println("Running calculator...");
                         }
                         if (processName.equalsIgnoreCase("run game")) {
@@ -246,7 +255,7 @@ public class Main {
                             System.out.println("Choose any of the options below by pressing the corresponding number");
                             System.out.println("1: Open applications");
                             System.out.println("2: Check process states");
-                            System.out.println("3: Check PCB components");
+                            System.out.println("3: Run Scheduler");
                             System.out.println("4: Check something else");
                             System.out.println("0: Quit");
                             break;
@@ -308,7 +317,7 @@ public class Main {
                             System.out.println("Choose any of the options below by pressing the corresponding number");
                             System.out.println("1: Applications");
                             System.out.println("2: Check process states");
-                            System.out.println("3: Check PCB components");
+                            System.out.println("3: Run Scheduler");
                             System.out.println("4: Check something else");
                             System.out.println("0: Quit");
                             break;
@@ -316,17 +325,29 @@ public class Main {
                     }
                 }
                 case 3 -> {
-                    totalPidList.addAll(calculatorPidList);
-                    totalPidList.addAll(gamePidList);
-                    totalPidList.addAll(microsoftwordPidList);
-                    totalPidList.addAll(storagePidList);
-                    System.out.println(totalPidList);
+
+                    System.out.println("You chose option 3");
+                    readyQueue.addAll(calculatorPidList);
+                    readyQueue.addAll(gamePidList);
+                    readyQueue.addAll(microsoftwordPidList);
+                    readyQueue.addAll(storagePidList);
+
+                    System.out.println("Current ready queue consists of pids.. " + readyQueue);
+                    System.out.println("Current ready queue consists of burst times.. " + burstTime);
+                    System.out.println("Running scheduler...");
+                    System.out.println("PID " + " Burst time " + " Waiting time\n");
+                    Scheduler.findAvgTime(readyQueue,readyQueue.size(), burstTime,scheduler.timeQuantum);
+
+                    System.out.println("\nReturning to main menu...\n");
+                    System.out.println("Choose any of the options below by pressing the corresponding number");
+                    System.out.println("1: Open applications");
+                    System.out.println("2: Check process states");
+                    System.out.println("3: Run Scheduler");
+                    System.out.println("4: Check something else");
+                    System.out.println("0: Quit");
                 }
             }
         }
-
-
-
     }
     /**Generates random number within a certain range; to be used as a representation of cycles for processes
      * min: lower bound of random number range
@@ -334,5 +355,6 @@ public class Main {
     public static int getRandomNumber(int min, int max){
         return (int) (Math.random() * (max-min) + min);
     }
+
 }
 

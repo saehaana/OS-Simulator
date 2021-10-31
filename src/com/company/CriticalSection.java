@@ -1,10 +1,27 @@
 package com.company;
 
+import java.util.concurrent.Semaphore;
+
 public class CriticalSection{
     /**Will contain at least one critical section and critical section resolving scheme
      * Ensures shared resource to be accessed by one process at a time**/
 
-    public void Crit(){
+    private Semaphore mutex = new Semaphore(1); //number of allowed threads in Semaphore is 1
+
+    public void cs(){
+        try{
+            mutex.acquire();
+        }catch(InterruptedException e){
+            //exception handling code
+        }finally{
+            mutex.release();
+        }
+    }
+
+    public void lock(){
+
+    }
+    public void unlock(){
 
     }
 

@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class Process{
     private int Cycle;
 
@@ -11,7 +14,7 @@ public class Process{
     public void setCycle(int newCycle){
         this.Cycle = newCycle;
     }
-    public int getCycle(){
-        return Cycle;
+    public Collection<? extends Integer> getCycle(){
+        return Collections.singleton(Cycle);
     }
 }
