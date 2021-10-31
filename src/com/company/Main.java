@@ -23,17 +23,19 @@ public class Main {
         Scheduler scheduler = new Scheduler();
 
         //Other variables and objects
-        Scanner scanner = new Scanner(System.in);
         String currLine;
         int menuSelection;
-        List<Integer> calculatorPidList = new ArrayList<Integer>();
-        List<Integer> gamePidList = new ArrayList<Integer>();
-        List<Integer> microsoftwordPidList = new ArrayList<Integer>();
-        List<Integer> storagePidList = new ArrayList<Integer>();
-        List<Integer> totalList = new ArrayList<Integer>();
+        Scanner scanner = new Scanner(System.in);
 
-        List<String> processStateList = new ArrayList<String>();
+        List<Integer> calculatorPidList = new ArrayList<>();
+        List<Integer> gamePidList = new ArrayList<>();
+        List<Integer> microsoftwordPidList = new ArrayList<>();
+        List<Integer> storagePidList = new ArrayList<>();
 
+        List<String> calculatorStateList = new ArrayList<>();
+        List<String> gameStateList = new ArrayList<>();
+        List<String> microsoftwordStateList = new ArrayList<>();
+        List<String> storageStateList = new ArrayList<>();
 
         //Template files
         BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
@@ -81,7 +83,7 @@ public class Main {
                                 pcbCalculator.setState("NEW");
                                 System.out.println(pcbCalculator.getPid());
                                 calculatorPidList.add(pcbCalculator.getPid());
-                                processStateList.add(pcbCalculator.getState());
+                                calculatorStateList.add(pcbCalculator.getState());
                             }
                             System.out.println("------------------------------");
                             System.out.println("Operations for given processes are: ");
@@ -108,7 +110,7 @@ public class Main {
                                 pcbGame.setState("NEW");
                                 System.out.println(pcbGame.getPid());
                                 gamePidList.add(pcbGame.getPid());
-                                processStateList.add(pcbGame.getState());
+                                gameStateList.add(pcbGame.getState());
                             }
                             System.out.println("------------------------------");
                             pcbGame.setState("NEW");
@@ -135,7 +137,7 @@ public class Main {
                                 pcbMicrosoftWord.setState("NEW");
                                 System.out.println(pcbMicrosoftWord.getPid());
                                 microsoftwordPidList.add(pcbMicrosoftWord.getPid());
-                                processStateList.add(pcbMicrosoftWord.getState());
+                                microsoftwordStateList.add(pcbMicrosoftWord.getState());
                             }
                             System.out.println("------------------------------");
                             pcbMicrosoftWord.setState("NEW");
@@ -162,7 +164,7 @@ public class Main {
                                 pcbStorage.setState("NEW");
                                 System.out.println(pcbStorage.getPid());
                                 storagePidList.add(pcbStorage.getPid());
-                                processStateList.add(pcbStorage.getState());
+                                storageStateList.add(pcbStorage.getState());
                             }
                             System.out.println("------------------------------");
                             pcbStorage.setState("NEW");
@@ -258,7 +260,7 @@ public class Main {
                         if(processName.equalsIgnoreCase("Calculator")) {
                             if(!(calculatorPidList.isEmpty())) {
                                 for(int i=0;i<calculatorPidList.size();i++){
-                                    System.out.println("Process state of pid " + calculatorPidList.get(i).toString() + " is " + pcbCalculator.getState());
+                                    System.out.println("Process state of pid " + calculatorPidList.get(i).toString() + " is " + calculatorStateList.get(i));
                                 }
                             System.out.println("Enter another application or return to menu: ");
                             }else{
@@ -269,7 +271,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Game")) {
                             if(!(gamePidList.isEmpty())){
                                 for(int i=0;i<gamePidList.size();i++) {
-                                    System.out.println("Process state of pid " + gamePidList.get(i).toString() + " is " + pcbGame.getState());
+                                    System.out.println("Process state of pid " + gamePidList.get(i).toString() + " is " + gameStateList.get(i));
                                 }
                             System.out.println("Enter another application or return to menu: ");
                             }else{
@@ -280,7 +282,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
                             if(!(microsoftwordPidList.isEmpty())){
                                 for(int i=0;i<microsoftwordPidList.size();i++){
-                                    System.out.println("Process state of pid " + microsoftwordPidList.get(i).toString() + " is " + pcbMicrosoftWord.getState());
+                                    System.out.println("Process state of pid " + microsoftwordPidList.get(i).toString() + " is " + microsoftwordStateList.get(i));
                                 }
                             System.out.println("Enter another application or return to menu: ");
                             }else{
@@ -291,7 +293,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Storage")) {
                             if(!(storagePidList.isEmpty())){
                                 for(int i=0;i<storagePidList.size();i++){
-                                    System.out.println("Process state of pid " + storagePidList.get(i).toString() + " is " + pcbStorage.getState());
+                                    System.out.println("Process state of pid " + storagePidList.get(i).toString() + " is " + storageStateList.get(i));
                                 }
                             System.out.println("Enter another application or return to menu: ");
                             }else{
