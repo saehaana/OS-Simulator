@@ -11,17 +11,31 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.*;
 
 public class Scheduler{
     public int timeQuantum = 70;
 
-    public static void findWaitTime(ArrayList<Integer> readyQueue, int length, ArrayList<Integer> burstTime, int[] waitTime, int timeQuantum){
-        int time = 0; //current time
+    public ArrayList<Integer> readyQueue = new ArrayList<>();
+    public ArrayList<Integer> waitQueue = new ArrayList<>();
+    public ArrayList<Integer> executeQueue = new ArrayList<>();
 
+    //Shortest Job First (SJF)
+    public void sort(ArrayList<Integer> queue){
+        Collections.sort(queue, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer pid1, Integer pid2) {
+                return Integer.compare(pid1, pid2);
+            }
+        });
+    }
+
+    public static void findWaitTime(ArrayList<Integer> readyQueue, int length, ArrayList<Integer> burstTime, int[] waitTime, int timeQuantum){
         int[] remainingBurstTime = new int[length]; //stores remaining burst times; equal to remaining process length from arraylist
         for(int i=0;i<length;i++){
             remainingBurstTime[i] = burstTime.get(i);
         }
+        int time = 0; //current time
 
         while(true){ //loop through processes until all processes not done
             boolean done = true;
