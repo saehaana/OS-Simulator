@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Process{
     private int Cycle;
@@ -16,8 +14,27 @@ public class Process{
     public void setCycle(int newCycle){
         this.Cycle = newCycle;
     }
-    public Collection<? extends Integer> getCycle(){
-        return Collections.singleton(Cycle);
+    public int getCycle(){
+        return Cycle;
     }
 
+    public void runCycle(Integer cycleTime) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0L;
+        cycleTime = (int) (long) elapsedTime;
+
+        while(cycleTime < getCycle()){
+            cycleTime = Math.toIntExact((new Date()).getTime() - startTime);
+        }
+    }
+
+    public void waitCycle(Integer cycleTime) {
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0L;
+        cycleTime = (int) (long) elapsedTime;
+
+        while(cycleTime < getCycle()){
+            cycleTime = Math.toIntExact((new Date()).getTime() - startTime);
+        }
+    }
 }

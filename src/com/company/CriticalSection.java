@@ -7,8 +7,8 @@ package com.company;
 import java.util.concurrent.Semaphore;
 
 public class CriticalSection{
+    public static Semaphore semaphore = new Semaphore(1); //number of allowed threads in Semaphore is 1;
     private boolean signal = false;
-    private Semaphore semaphore = new Semaphore(1); //number of allowed threads in Semaphore is 1
 
     //sends signal
     public synchronized void take(){

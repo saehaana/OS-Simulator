@@ -21,7 +21,7 @@ public class Main {
         PCB pcbStorage = new PCB();
 
         //Critical Section class objects
-        CriticalSection resource = new CriticalSection();
+        CriticalSection sem = new CriticalSection();
 
         //Scheduler class objects
         Scheduler scheduler = new Scheduler();
@@ -32,10 +32,10 @@ public class Main {
         //Other variables and objects
         String currLine;
         int menuSelection;
-        Semaphore semaphore = new Semaphore(1);
-        ArrayList<Integer> burstTime = new ArrayList<>();
+        ArrayList<Integer> runTime = new ArrayList<>();
         ArrayList<Integer> waitTime = new ArrayList<>();
         ArrayList<Integer> readyQueue = new ArrayList<>();
+        ArrayList<String> stateQueue = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         List<Integer> calculatorPidList = new ArrayList<>();
@@ -49,11 +49,14 @@ public class Main {
         List<String> storageStateList = new ArrayList<>();
 
         //Template files
-        BufferedReader brCalculator = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
-        BufferedReader brCalculator2 = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
-        BufferedReader brGame = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
-        BufferedReader brMicrosoftWord = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
-        BufferedReader brStorage = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
+        BufferedReader brCalculatorLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
+        BufferedReader brCalculatorRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
+        BufferedReader brGameLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
+        BufferedReader brGameRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
+        BufferedReader brMicrosoftWordLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
+        BufferedReader brMicrosoftWordRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
+        BufferedReader brStorageLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
+        BufferedReader brStorageRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
 
         System.out.println("****************************************");
         System.out.println("Welcome to Ausawin's OS simulator!");
@@ -84,6 +87,7 @@ public class Main {
                     while(scanner.hasNextLine()){
                         String processName = scanner.nextLine();
                         //application process states set to new
+                        //processes given pid
                         //different operations with cycles given based on program user selects
                         if(processName.equalsIgnoreCase("Calculator")){
                             System.out.println("How many processes would you like to create?");
@@ -99,14 +103,15 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             System.out.println("Operations for given processes are: ");
-                            while((currLine = brCalculator.readLine()) != null){
+                            while((currLine = brCalculatorLoad.readLine()) != null){
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
-                                    burstTime.addAll(process.getCycle());
+                                    runTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if(currLine.equals("I/O")){
                                     process.setCycle(getRandomNumber(11, 82));
+                                    waitTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -125,14 +130,15 @@ public class Main {
                                 gameStateList.add(pcbGame.getState());
                             }
                             System.out.println("------------------------------");
-                            while ((currLine = brGame.readLine()) != null) {
+                            while ((currLine = brGameLoad.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
-                                    burstTime.addAll(process.getCycle());
+                                    runTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
+                                    waitTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -151,14 +157,15 @@ public class Main {
                                 microsoftwordStateList.add(pcbMicrosoftWord.getState());
                             }
                             System.out.println("------------------------------");
-                            while ((currLine = brMicrosoftWord.readLine()) != null) {
+                            while ((currLine = brMicrosoftWordLoad.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
-                                    burstTime.addAll(process.getCycle());
+                                    runTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
+                                    waitTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -177,14 +184,15 @@ public class Main {
                                 storageStateList.add(pcbStorage.getState());
                             }
                             System.out.println("------------------------------");
-                            while ((currLine = brStorage.readLine()) != null) {
+                            while ((currLine = brStorageLoad.readLine()) != null) {
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
-                                    burstTime.addAll(process.getCycle());
+                                    runTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if (currLine.equals("I/O")) {
                                     process.setCycle(getRandomNumber(11, 82));
+                                    waitTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                             }
@@ -193,36 +201,114 @@ public class Main {
 
                         // run program
                         // executes calculate and i/o instructions of an application's process
-                        if (processName.equalsIgnoreCase("run calculator")) {
-                            //pcbCalculator.setState("RUNNING");
-                            //storageStateList.add(pcbCalculator.getState());
+                        if(processName.equalsIgnoreCase("run calculator")){
                             System.out.println("Running calculator operations...");
-                            while ((currLine = brCalculator2.readLine()) != null) {
+                            while ((currLine = brCalculatorRun.readLine()) != null) {
+                                if(currLine.equals("CALCULATE")){
+                                    pcbCalculator.setState("RUNNING");
+                                    System.out.println("Current " + currLine + " queue " + runTime);
+                                    for(int i=0;i<runTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + runTime.get(i));
+
+                                        process.runCycle(runTime.get(i));
+                                        Process.resource--;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + runTime.get(i));
+                                        runTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("I/O")){
+                                    pcbCalculator.setState("WAITING");
+                                    System.out.println("Current " + currLine + " queue " + waitTime);
+                                    for(int i=0;i<waitTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + waitTime.get(i));
+                                        System.out.println("Waiting...");
+
+                                        process.waitCycle(waitTime.get(i));
+                                        Process.resource++;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + waitTime.get(i));
+                                        waitTime.remove(i);
+                                    }
+                                }
                                 if(currLine.equals("CRIT_START")){
                                     try{
                                         for(int i=0;i<calculatorPidList.size();i++){
                                             System.out.println("Pid " + calculatorPidList.get(i) + " waiting for lock..");
-                                            semaphore.acquire();
+                                            CriticalSection.semaphore.acquire();
                                             System.out.println("Pid " + calculatorPidList.get(i) + " acquired lock");
                                             Process.resource++;
                                         }
                                     }catch(InterruptedException e){
                                         System.out.println(e);
                                     }
-                                    semaphore.release();
+                                    CriticalSection.semaphore.release();
                                 }
                                 if(currLine.equals("CRIT_END")){
                                     for(int i=0;i<calculatorPidList.size();i++) {
                                         System.out.println("Pid " + calculatorPidList.get(i) + " released lock");
                                         Process.resource++;
                                     }
-                                    semaphore.release();
+                                    CriticalSection.semaphore.release();
                                 }
                             }
                         }
-                        if (processName.equalsIgnoreCase("run game")) {
+                        if(processName.equalsIgnoreCase("run game")){
                             pcbGame.setState("RUNNING");
                             System.out.println("Running game operations...");
+                            while((currLine = brGameRun.readLine()) != null){
+                                if(currLine.equals("CALCULATE")){
+                                    pcbGame.setState("RUNNING");
+                                    System.out.println("Current " + currLine + " queue " + runTime);
+                                    for(int i=0;i<runTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + runTime.get(i));
+
+                                        process.runCycle(runTime.get(i));
+                                        Process.resource--;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + runTime.get(i));
+                                        runTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("I/O")){
+                                    pcbGame.setState("WAITING");
+                                    System.out.println("Current " + currLine + " queue " + waitTime);
+                                    for(int i=0;i<waitTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + waitTime.get(i));
+                                        System.out.println("Waiting...");
+
+                                        process.waitCycle(waitTime.get(i));
+                                        Process.resource++;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + waitTime.get(i));
+                                        waitTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("CRIT_START")){
+                                    try{
+                                        for(int i=0;i<gamePidList.size();i++){
+                                            System.out.println("Pid " + gamePidList.get(i) + " waiting for lock..");
+                                            CriticalSection.semaphore.acquire();
+                                            System.out.println("Pid " + gamePidList.get(i) + " acquired lock");
+                                            Process.resource++;
+                                        }
+                                    }catch(InterruptedException e){
+                                        System.out.println(e);
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                                if(currLine.equals("CRIT_END")){
+                                    for(int i=0;i<gamePidList.size();i++) {
+                                        System.out.println("Pid " + gamePidList.get(i) + " released lock");
+                                        Process.resource++;
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                            }
                         }
                         if (processName.equalsIgnoreCase("run microsoft word")) {
                             pcbMicrosoftWord.setState("RUNNING");
@@ -334,11 +420,32 @@ public class Main {
                     readyQueue.addAll(microsoftwordPidList);
                     readyQueue.addAll(storagePidList);
 
+                    stateQueue.addAll(calculatorStateList);
+                    stateQueue.addAll(gameStateList);
+                    stateQueue.addAll(microsoftwordStateList);
+                    stateQueue.addAll(storageStateList);
+
+                    for(int i=0;i<stateQueue.size()-1;i++){
+                        if(!(calculatorStateList.isEmpty())){
+                            calculatorStateList.set(i, "READY");
+                        }
+                        if(!(gameStateList.isEmpty())){
+                            gameStateList.set(i, "READY");
+                        }
+                        if(!(microsoftwordStateList.isEmpty())){
+                            microsoftwordStateList.set(i, "READY");
+                        }
+                        if(!(storageStateList.isEmpty())){
+                            storageStateList.set(i, "READY");
+                        }
+                    }
+
                     System.out.println("Current ready queue consists of pids.. " + readyQueue);
-                    System.out.println("Current ready queue consists of burst times.. " + burstTime);
+                    System.out.println("Current ready queue consists of burst times.. " + runTime);
+                    System.out.println("Current wait queue consists of wait times.. " + waitTime);
                     System.out.println("Running scheduler...");
                     System.out.println("PID " + " Burst time " + " Waiting time\n");
-                    Scheduler.findAvgTime(readyQueue,readyQueue.size(), burstTime,scheduler.timeQuantum);
+                    Scheduler.findAvgTime(readyQueue,readyQueue.size(),runTime,scheduler.timeQuantum);
 
                     System.out.println("\nReturning to main menu...\n");
                     System.out.println("Choose any of the options below by pressing the corresponding number");
@@ -357,6 +464,5 @@ public class Main {
     public static int getRandomNumber(int min, int max){
         return (int) (Math.random() * (max-min) + min);
     }
-
 }
 
