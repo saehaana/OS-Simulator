@@ -12,6 +12,8 @@ How To Run
 
 The OS simulator was created using IntelliJ IDE and as of right now there is no executable. So the only way to run the program is to save all files to a folder and execute Main.java from within the IDE. One thing to note is the inclusion of the BufferedReader class to read text from specified templates/program files. Your version of the OS simulator will not run correctly if you do not change the file paths of the templates to your download's directory. If you do not change the file path directory, BufferedReader will not be able to read correctly and therefore processes and their associated operations cannot be properly set. 
 
+[![image.png](https://i.postimg.cc/pr00y3t4/image.png)](https://postimg.cc/0KwGBWj0)
+
 Implemented Solutions
 
 To simulate an operating system and its components, the idea of separate java files working together was an ideal approach. Code was encapsulated into separate classes and represented by names such as PCB, Processor, Scheduler, etc. Each class had their own setter and getter methods which was used to manipulate their class's object(s) and return certain I/O.
