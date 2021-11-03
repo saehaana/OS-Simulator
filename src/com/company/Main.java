@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -21,13 +20,11 @@ public class Main {
         PCB pcbStorage = new PCB();
 
         //Critical Section class objects
-        CriticalSection sem = new CriticalSection();
 
         //Scheduler class objects
         Scheduler scheduler = new Scheduler();
 
         //Dispatcher class objects
-        Dispatcher dispatch = new Dispatcher();
 
         //Other variables and objects
         String currLine;
@@ -66,7 +63,6 @@ public class Main {
         System.out.println("1: Load Applications");
         System.out.println("2: Process state status");
         System.out.println("3: Run Scheduler");
-        System.out.println("4: Check something else");
         System.out.println("0: Quit");
         while(scanner.hasNextInt()){
             menuSelection = scanner.nextInt();
@@ -313,15 +309,117 @@ public class Main {
                         if (processName.equalsIgnoreCase("run microsoft word")) {
                             pcbMicrosoftWord.setState("RUNNING");
                             System.out.println("Running microsoft word operations...");
+                            while((currLine = brMicrosoftWordRun.readLine()) != null){
+                                if(currLine.equals("CALCULATE")){
+                                    pcbMicrosoftWord.setState("RUNNING");
+                                    System.out.println("Current " + currLine + " queue " + runTime);
+                                    for(int i=0;i<runTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + runTime.get(i));
+
+                                        process.runCycle(runTime.get(i));
+                                        Process.resource--;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + runTime.get(i));
+                                        runTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("I/O")){
+                                    pcbMicrosoftWord.setState("WAITING");
+                                    System.out.println("Current " + currLine + " queue " + waitTime);
+                                    for(int i=0;i<waitTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + waitTime.get(i));
+                                        System.out.println("Waiting...");
+
+                                        process.waitCycle(waitTime.get(i));
+                                        Process.resource++;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + waitTime.get(i));
+                                        waitTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("CRIT_START")){
+                                    try{
+                                        for(int i=0;i<microsoftwordPidList.size();i++){
+                                            System.out.println("Pid " + microsoftwordPidList.get(i) + " waiting for lock..");
+                                            CriticalSection.semaphore.acquire();
+                                            System.out.println("Pid " + microsoftwordPidList.get(i) + " acquired lock");
+                                            Process.resource++;
+                                        }
+                                    }catch(InterruptedException e){
+                                        System.out.println(e);
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                                if(currLine.equals("CRIT_END")){
+                                    for(int i=0;i<microsoftwordPidList.size();i++) {
+                                        System.out.println("Pid " + microsoftwordPidList.get(i) + " released lock");
+                                        Process.resource++;
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                            }
                         }
                         if (processName.equalsIgnoreCase("run storage")) {
                             pcbStorage.setState("RUNNING");
                             System.out.println("Running storage operations...");
+                            while((currLine = brStorageRun.readLine()) != null){
+                                if(currLine.equals("CALCULATE")){
+                                    pcbStorage.setState("RUNNING");
+                                    System.out.println("Current " + currLine + " queue " + runTime);
+                                    for(int i=0;i<runTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + runTime.get(i));
+
+                                        process.runCycle(runTime.get(i));
+                                        Process.resource--;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + runTime.get(i));
+                                        runTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("I/O")){
+                                    pcbStorage.setState("WAITING");
+                                    System.out.println("Current " + currLine + " queue " + waitTime);
+                                    for(int i=0;i<waitTime.size();i++){
+                                        System.out.println("Running operation " + currLine + " " + waitTime.get(i));
+                                        System.out.println("Waiting...");
+
+                                        process.waitCycle(waitTime.get(i));
+                                        Process.resource++;
+
+                                        System.out.println(currLine + " done");
+                                        System.out.println("Removing operation " + currLine + " " + waitTime.get(i));
+                                        waitTime.remove(i);
+                                    }
+                                }
+                                if(currLine.equals("CRIT_START")){
+                                    try{
+                                        for(int i=0;i<storagePidList.size();i++){
+                                            System.out.println("Pid " + storagePidList.get(i) + " waiting for lock..");
+                                            CriticalSection.semaphore.acquire();
+                                            System.out.println("Pid " + storagePidList.get(i) + " acquired lock");
+                                            Process.resource++;
+                                        }
+                                    }catch(InterruptedException e){
+                                        System.out.println(e);
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                                if(currLine.equals("CRIT_END")){
+                                    for(int i=0;i<storagePidList.size();i++) {
+                                        System.out.println("Pid " + storagePidList.get(i) + " released lock");
+                                        Process.resource++;
+                                    }
+                                    CriticalSection.semaphore.release();
+                                }
+                            }
                         }
 
                         // close program
                         // terminates and/or exits application's process
-                        if (processName.equalsIgnoreCase("close calculator")) {
+                        /**if (processName.equalsIgnoreCase("close calculator")) {
                             pcbCalculator.setState(null);
                             System.out.println("Calculator closed");
                         }
@@ -336,7 +434,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("close storage")) {
                             pcbStorage.setState(null);
                             System.out.println("Storage closed");
-                        }
+                        }**/
 
                         if (processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
@@ -344,7 +442,6 @@ public class Main {
                             System.out.println("1: Load applications");
                             System.out.println("2: Check process states");
                             System.out.println("3: Run Scheduler");
-                            System.out.println("4: Check something else");
                             System.out.println("0: Quit");
                             break;
                         }
@@ -406,7 +503,6 @@ public class Main {
                             System.out.println("1: Applications");
                             System.out.println("2: Check process states");
                             System.out.println("3: Run Scheduler");
-                            System.out.println("4: Check something else");
                             System.out.println("0: Quit");
                             break;
                         }
@@ -444,19 +540,53 @@ public class Main {
                     System.out.println("Current ready queue consists of burst times.. " + runTime);
                     System.out.println("Current wait queue consists of wait times.. " + waitTime);
                     System.out.println("Running scheduler...");
+
+                    for(int i=0;i<stateQueue.size()-1;i++){
+                        if(!(calculatorStateList.isEmpty())){
+                            calculatorStateList.set(i, "RUNNING");
+                        }
+                        if(!(gameStateList.isEmpty())){
+                            gameStateList.set(i, "RUNNING");
+                        }
+                        if(!(microsoftwordStateList.isEmpty())){
+                            microsoftwordStateList.set(i, "RUNNING");
+                        }
+                        if(!(storageStateList.isEmpty())){
+                            storageStateList.set(i, "RUNNING");
+                        }
+                    }
+
                     System.out.println("PID " + " Burst time " + " Waiting time\n");
                     Scheduler.findAvgTime(readyQueue,readyQueue.size(),runTime,scheduler.timeQuantum);
+
+                    for(int i=0;i<runTime.size()-1;i++){
+                        process.runCycle(runTime.get(i));
+                        Process.resource--;
+                    }
+                    runTime.clear();
+                    waitTime.clear();
+                    readyQueue.clear();
+                    stateQueue.clear();
+
+                    pcbCalculator.setState(null);
+                    pcbGame.setState(null);
+                    pcbMicrosoftWord.setState(null);
+                    pcbStorage.setState(null);
+
+                    //pcbCalculator.setPid((Integer) null);
+                    //pcbGame.setPid((Integer) null);
+                    //pcbMicrosoftWord.setPid((Integer) null);
+                    //pcbStorage.setPid((Integer) null);
 
                     System.out.println("\nReturning to main menu...\n");
                     System.out.println("Choose any of the options below by pressing the corresponding number");
                     System.out.println("1: Open applications");
                     System.out.println("2: Check process states");
                     System.out.println("3: Run Scheduler");
-                    System.out.println("4: Check something else");
                     System.out.println("0: Quit");
+                    }
                 }
             }
-        }
     }
     /**Generates random number within a certain range; to be used as a representation of cycles for processes
      * min: lower bound of random number range

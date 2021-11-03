@@ -16,10 +16,6 @@ import java.util.*;
 public class Scheduler{
     public int timeQuantum = 70;
 
-    public ArrayList<Integer> readyQueue = new ArrayList<>();
-    public ArrayList<Integer> waitQueue = new ArrayList<>();
-    public ArrayList<Integer> executeQueue = new ArrayList<>();
-
     //Shortest Job First (SJF)
     public void sort(ArrayList<Integer> queue){
         Collections.sort(queue, new Comparator<Integer>() {
@@ -70,6 +66,10 @@ public class Scheduler{
         }
     }
 
-
+    public static void roundRobin(ArrayList <Integer> readyQueue, int length, ArrayList<Integer> burstTime, ArrayList<Integer> waitTime){
+        for(int i=0;i<length;i++){
+            burstTime.get(i);
+        }
+    }
 
 }
