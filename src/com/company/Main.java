@@ -29,6 +29,7 @@ public class Main {
         //Other variables and objects
         String currLine;
         int menuSelection;
+
         ArrayList<Integer> runTime = new ArrayList<>();
         ArrayList<Integer> waitTime = new ArrayList<>();
         ArrayList<Integer> readyQueue = new ArrayList<>();
@@ -82,6 +83,7 @@ public class Main {
                     System.out.println("Calculator," + " Game," + " Microsoft Word," + " Storage");
                     while(scanner.hasNextLine()){
                         String processName = scanner.nextLine();
+
                         //application process states set to new
                         //processes given pid
                         //different operations with cycles given based on program user selects
@@ -100,6 +102,10 @@ public class Main {
                             System.out.println("------------------------------");
                             System.out.println("Operations for given processes are: ");
                             while((currLine = brCalculatorLoad.readLine()) != null){
+                                if(currLine.equals("50")){
+                                    int memory = Integer.parseInt(currLine);
+                                    Process.memorySize = Process.memorySize - memory;
+                                }
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
                                     runTime.add(process.getCycle());
@@ -127,6 +133,10 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             while ((currLine = brGameLoad.readLine()) != null) {
+                                if(currLine.equals("100")){
+                                    int memory = Integer.parseInt(currLine);
+                                    Process.memorySize = Process.memorySize - memory;
+                                }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
                                     runTime.add(process.getCycle());
@@ -154,6 +164,10 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             while ((currLine = brMicrosoftWordLoad.readLine()) != null) {
+                                if(currLine.equals("30")){
+                                    int memory = Integer.parseInt(currLine);
+                                    Process.memorySize = Process.memorySize - memory;
+                                }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
                                     runTime.add(process.getCycle());
@@ -181,6 +195,10 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             while ((currLine = brStorageLoad.readLine()) != null) {
+                                if(currLine.equals("30")){
+                                    int memory = Integer.parseInt(currLine);
+                                    Process.memorySize = Process.memorySize - memory;
+                                }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
                                     runTime.add(process.getCycle());

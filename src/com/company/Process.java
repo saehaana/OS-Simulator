@@ -6,11 +6,17 @@ public class Process{
     private int Cycle;
     public static int resource = 0;
 
+    /**Value of memorySize to be used as comparison against memory requirements of new processes
+     * If memorySize - (used memory) is more than new job memory requirement, job can enter READY state (queue)
+     * Else process remains in NEW queue (if spawned) or WAITING queue (if trying to re-enter READY state)**/
+    public static int memorySize = 1024;
+
     /**Program will read program file/template as input
      * Input will generate processes of random cycle length for each operation
      * Operations include:
      *      CALCULATE - run process in run state for cycle(s) (simulates CPU resource usage)
-     *      I/O       - put process in wait state for cycle(s)**/
+     *      I/O       - put process in wait state for cycle(s)
+     *      FORK      - create child process according to selected parent-child management scheme**/
     public void setCycle(int newCycle){
         this.Cycle = newCycle;
     }
@@ -37,4 +43,10 @@ public class Process{
             cycleTime = Math.toIntExact((new Date()).getTime() - startTime);
         }
     }
+
+    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
+    public void fork(String processName){
+
+    }
+
 }
