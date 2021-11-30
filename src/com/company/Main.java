@@ -104,7 +104,13 @@ public class Main {
                             while((currLine = brCalculatorLoad.readLine()) != null){
                                 if(currLine.equals("50")){
                                     int memory = Integer.parseInt(currLine);
-                                    Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize - memory) > memory){
+                                        Process.memorySize = Process.memorySize - memory;
+                                        pcbCalculator.setState("READY");
+                                    }
+                                    if((Process.memorySize - memory) < memory){
+                                        pcbCalculator.setState("WAITING");
+                                    }
                                 }
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
@@ -135,7 +141,13 @@ public class Main {
                             while ((currLine = brGameLoad.readLine()) != null) {
                                 if(currLine.equals("100")){
                                     int memory = Integer.parseInt(currLine);
-                                    Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize - memory) > memory){
+                                        Process.memorySize = Process.memorySize - memory;
+                                        pcbGame.setState("READY");
+                                    }
+                                    if((Process.memorySize - memory) < memory){
+                                        pcbGame.setState("WAITING");
+                                    }
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -166,7 +178,13 @@ public class Main {
                             while ((currLine = brMicrosoftWordLoad.readLine()) != null) {
                                 if(currLine.equals("30")){
                                     int memory = Integer.parseInt(currLine);
-                                    Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize - memory) > memory){
+                                        Process.memorySize = Process.memorySize - memory;
+                                        pcbMicrosoftWord.setState("READY");
+                                    }
+                                    if((Process.memorySize - memory) < memory){
+                                        pcbMicrosoftWord.setState("WAITING");
+                                    }
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -197,7 +215,13 @@ public class Main {
                             while ((currLine = brStorageLoad.readLine()) != null) {
                                 if(currLine.equals("30")){
                                     int memory = Integer.parseInt(currLine);
-                                    Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize - memory) > memory){
+                                        Process.memorySize = Process.memorySize - memory;
+                                        pcbStorage.setState("READY");
+                                    }
+                                    if((Process.memorySize - memory) < memory){
+                                        pcbStorage.setState("WAITING");
+                                    }
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
