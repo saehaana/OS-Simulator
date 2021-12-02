@@ -12,6 +12,10 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         //Process class objects
         Process process = new Process();
+        Process thread1 = new Process();
+        Process thread2 = new Process();
+        Process thread3 = new Process();
+        Process thread4 = new Process();
 
         //PCB class objects
         PCB pcbCalculator = new PCB();
@@ -74,6 +78,8 @@ public class Main {
                 }
                 case 1 -> {
                     System.out.println("You chose option 1");
+                    thread1.start();
+                    thread2.start();
                     System.out.println("Load different programs from the list below by typing the program name");
                     System.out.println("To run a program type 'run *program* (ignore ' and * characters)");
                     System.out.println("To minimize a program type 'min *program* (ignore ' and * characters)");
@@ -86,7 +92,8 @@ public class Main {
 
                         //application process states set to new
                         //processes given pid
-                        //different operations with cycles given based on program user selects
+                        //processes take memory
+                        //different operations with varying cycles given based on program user selects
                         if(processName.equalsIgnoreCase("Calculator")){
                             System.out.println("How many processes would you like to create?");
                             int numProcesses = scanner.nextInt();
@@ -254,6 +261,14 @@ public class Main {
                                         System.out.println(currLine + " done");
                                         System.out.println("Removing operation " + currLine + " " + runTime.get(i));
                                         runTime.remove(i);
+
+                                        //if random number generated is less than 30, cause IO interrupt and make processes wait
+                                        if(randomIO(11,82) < 30){
+                                            System.out.println("\nRandom I/O event occurred\n");
+                                            System.out.println("Waiting...");
+                                            process.setCycle(5);
+                                            process.waitCycle(process.getCycle());
+                                        }
                                     }
                                 }
                                 if(currLine.equals("I/O")){
@@ -309,6 +324,14 @@ public class Main {
                                         System.out.println(currLine + " done");
                                         System.out.println("Removing operation " + currLine + " " + runTime.get(i));
                                         runTime.remove(i);
+
+                                        //if random number generated is less than 30, cause IO interrupt and make processes wait
+                                        if(randomIO(11,82) < 30){
+                                            System.out.println("\nRandom I/O event occurred\n");
+                                            System.out.println("Waiting...");
+                                            process.setCycle(5);
+                                            process.waitCycle(process.getCycle());
+                                        }
                                     }
                                 }
                                 if(currLine.equals("I/O")){
@@ -364,6 +387,14 @@ public class Main {
                                         System.out.println(currLine + " done");
                                         System.out.println("Removing operation " + currLine + " " + runTime.get(i));
                                         runTime.remove(i);
+
+                                        //if random number generated is less than 30, cause IO interrupt and make processes wait
+                                        if(randomIO(11,82) < 30){
+                                            System.out.println("\nRandom I/O event occurred\n");
+                                            System.out.println("Waiting...");
+                                            process.setCycle(5);
+                                            process.waitCycle(process.getCycle());
+                                        }
                                     }
                                 }
                                 if(currLine.equals("I/O")){
@@ -419,6 +450,14 @@ public class Main {
                                         System.out.println(currLine + " done");
                                         System.out.println("Removing operation " + currLine + " " + runTime.get(i));
                                         runTime.remove(i);
+
+                                        //if random number generated is less than 30, cause IO interrupt and make processes wait
+                                        if(randomIO(11,82) < 30){
+                                            System.out.println("\nRandom I/O event occurred\n");
+                                            System.out.println("Waiting...");
+                                            process.setCycle(5);
+                                            process.waitCycle(process.getCycle());
+                                        }
                                     }
                                 }
                                 if(currLine.equals("I/O")){
@@ -635,6 +674,10 @@ public class Main {
      * max: upper bound of random number range**/
     public static int getRandomNumber(int min, int max){
         return (int) (Math.random() * (max-min) + min);
+    }
+    /**Chance for I/O event to occur if the random number generated is within a certain range**/
+    public static int randomIO(int min, int max){
+        return  (int) (Math.random() * (max-min) + min);
     }
 }
 

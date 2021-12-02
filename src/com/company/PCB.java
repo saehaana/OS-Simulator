@@ -13,6 +13,7 @@ package com.company;
 public class PCB{
     private static int pid;
     private String State;
+    private String clone;
 
     /**Processes create from templates must also be given process states
      * States include:
@@ -36,6 +37,9 @@ public class PCB{
         return pid;
     }
 
-
+    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
+    public void fork(PCB test){
+        this.clone = test.clone;
+    }
 }
 

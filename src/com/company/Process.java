@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class Process{
+public class Process extends Thread{
     private int Cycle;
     public static int resource = 0;
 
@@ -44,9 +44,12 @@ public class Process{
         }
     }
 
-    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
-    public void fork(String processName){
-
+    public void run(){
+        try{
+            System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+        }catch(Exception e){
+            System.out.println("Exception is caught");
+        }
     }
 
 }
