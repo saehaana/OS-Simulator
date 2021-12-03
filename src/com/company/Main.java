@@ -109,15 +109,19 @@ public class Main {
                             System.out.println("------------------------------");
                             System.out.println("Operations for given processes are: ");
                             while((currLine = brCalculatorLoad.readLine()) != null){
-                                if(currLine.equals("50")){
+                                if(currLine.equals("-50")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize - memory) > memory){
-                                        Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize + memory) > memory){
+                                        Process.memorySize = Process.memorySize + memory;
                                         pcbCalculator.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
                                         pcbCalculator.setState("WAITING");
                                     }
+                                    System.out.println(Process.memorySize + " MB allocated to process");
+                                }
+                                if(currLine.equals("FORK")) {
+
                                 }
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
@@ -249,10 +253,10 @@ public class Main {
                         if(processName.equalsIgnoreCase("run calculator")){
                             System.out.println("Running calculator operations...");
                             while ((currLine = brCalculatorRun.readLine()) != null) {
-                                if(currLine.equals("CALCULATE")){
+                                if (currLine.equals("CALCULATE")) {
                                     pcbCalculator.setState("RUNNING");
                                     System.out.println("Current " + currLine + " queue " + runTime);
-                                    for(int i=0;i<runTime.size();i++){
+                                    for (int i = 0; i < runTime.size(); i++) {
                                         System.out.println("Running operation " + currLine + " " + runTime.get(i));
 
                                         process.runCycle(runTime.get(i));
@@ -263,18 +267,20 @@ public class Main {
                                         runTime.remove(i);
 
                                         //if random number generated is less than 30, cause IO interrupt and make processes wait
-                                        if(randomIO(11,82) < 30){
-                                            System.out.println("\nRandom I/O event occurred\n");
+                                        if (randomIO(11, 82) < 30) {
+                                            System.out.println("\nRandom I/O event occurred");
                                             System.out.println("Waiting...");
                                             process.setCycle(5);
                                             process.waitCycle(process.getCycle());
+                                            Thread.sleep(100);
+                                            System.out.println("done\n");
                                         }
                                     }
                                 }
-                                if(currLine.equals("I/O")){
+                                if (currLine.equals("I/O")) {
                                     pcbCalculator.setState("WAITING");
                                     System.out.println("Current " + currLine + " queue " + waitTime);
-                                    for(int i=0;i<waitTime.size();i++){
+                                    for (int i = 0; i < waitTime.size(); i++) {
                                         System.out.println("Running operation " + currLine + " " + waitTime.get(i));
                                         System.out.println("Waiting...");
 
@@ -286,25 +292,32 @@ public class Main {
                                         waitTime.remove(i);
                                     }
                                 }
-                                if(currLine.equals("CRIT_START")){
-                                    try{
-                                        for(int i=0;i<calculatorPidList.size();i++){
+                                if (currLine.equals("CRIT_START")) {
+                                    try {
+                                        for (int i = 0; i < calculatorPidList.size(); i++) {
                                             System.out.println("Pid " + calculatorPidList.get(i) + " waiting for lock..");
                                             CriticalSection.semaphore.acquire();
                                             System.out.println("Pid " + calculatorPidList.get(i) + " acquired lock");
                                             Process.resource++;
                                         }
-                                    }catch(InterruptedException e){
+                                    } catch (InterruptedException e) {
                                         System.out.println(e);
                                     }
                                     CriticalSection.semaphore.release();
                                 }
-                                if(currLine.equals("CRIT_END")){
-                                    for(int i=0;i<calculatorPidList.size();i++) {
+                                if (currLine.equals("CRIT_END")) {
+                                    for (int i = 0; i < calculatorPidList.size(); i++) {
                                         System.out.println("Pid " + calculatorPidList.get(i) + " released lock");
                                         Process.resource++;
                                     }
                                     CriticalSection.semaphore.release();
+                                }
+                                if (currLine.equals("+50")) {
+                                    int memory = Integer.parseInt(currLine);
+                                    if ((Process.memorySize + memory) <= 1024) {
+                                        Process.memorySize = Process.memorySize + memory;
+                                        System.out.println(memory + " MB reallocated");
+                                    }
                                 }
                             }
                         }
@@ -327,10 +340,11 @@ public class Main {
 
                                         //if random number generated is less than 30, cause IO interrupt and make processes wait
                                         if(randomIO(11,82) < 30){
-                                            System.out.println("\nRandom I/O event occurred\n");
+                                            System.out.println("\nRandom I/O event occurred");
                                             System.out.println("Waiting...");
                                             process.setCycle(5);
                                             process.waitCycle(process.getCycle());
+                                            System.out.println("done\n");
                                         }
                                     }
                                 }
@@ -394,6 +408,7 @@ public class Main {
                                             System.out.println("Waiting...");
                                             process.setCycle(5);
                                             process.waitCycle(process.getCycle());
+                                            System.out.println("done\n");
                                         }
                                     }
                                 }
@@ -457,6 +472,7 @@ public class Main {
                                             System.out.println("Waiting...");
                                             process.setCycle(5);
                                             process.waitCycle(process.getCycle());
+                                            System.out.println("done\n");
                                         }
                                     }
                                 }
@@ -679,5 +695,6 @@ public class Main {
     public static int randomIO(int min, int max){
         return  (int) (Math.random() * (max-min) + min);
     }
+
 }
 

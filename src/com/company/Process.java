@@ -1,10 +1,12 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Process extends Thread{
     private int Cycle;
     public static int resource = 0;
+    private PCB current;
 
     /**Value of memorySize to be used as comparison against memory requirements of new processes
      * If memorySize - (used memory) is more than new job memory requirement, job can enter READY state (queue)
@@ -33,7 +35,6 @@ public class Process extends Thread{
             cycleTime = Math.toIntExact((new Date()).getTime() - startTime);
         }
     }
-
     public void waitCycle(Integer cycleTime) {
         long startTime = System.currentTimeMillis();
         long elapsedTime = 0L;
@@ -42,6 +43,12 @@ public class Process extends Thread{
         while(cycleTime < getCycle()){
             cycleTime = Math.toIntExact((new Date()).getTime() - startTime);
         }
+    }
+
+    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
+    public void fork(PCB child, boolean wait) throws IOException{
+        child.setParent(current);
+        current.addChild(child);
     }
 
     public void run(){

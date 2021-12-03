@@ -10,10 +10,15 @@
 
 package com.company;
 
+import java.util.ArrayList;
+
 public class PCB{
     private static int pid;
+    private static int numChildren;
     private String State;
-    private String clone;
+
+    ArrayList<Process> numChildrenList = new ArrayList<Process>(0);
+    private Process parent;
 
     /**Processes create from templates must also be given process states
      * States include:
@@ -37,9 +42,40 @@ public class PCB{
         return pid;
     }
 
-    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
-    public void fork(PCB test){
-        this.clone = test.clone;
+    public void setParent(PCB parent) {
+        this.parent = parent;
+    }
+    public Process getParent(){
+        return parent;
+    }
+
+    public void addChild(PCB child)
+    {
+        numChildrenList.add(child);
+    }
+
+    public void setNumChildren(int Children){
+        this.numChildren = Children;
+        for(int i=0;i<Children;i++){
+            numChildrenList.add(i);
+        }
+    }
+    public int getNumChildren(){
+        return numChildren;
+    }
+
+    //used for cascading termination - if parent terminates, then all children terminate
+    public void terminate(){
+        if(getNumChildren() == 0){
+            this.setState("TERMINATED");
+        }else{
+            for(int i=0;i<getNumChildren();i++){
+                getNumChildren().get(i).terminate();
+            }
+        }
+    }
+    public void removeChild(int i){
+        getNumChildren().get(i).exit();
     }
 }
 
