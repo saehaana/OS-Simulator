@@ -31,3 +31,5 @@ Enter keyword(s) corresponding to what you want to do as directed by the termina
 At any point you may return to the main menu with keyword 'return', and exit/stop the simulator with keyword '0', 'exit', or 'quit' 
 
 ![image](https://user-images.githubusercontent.com/61268356/140006314-2dbdf94f-ab22-45fe-8eb0-d394807a76ac.png)
+
+**Addendum**
