@@ -33,3 +33,4 @@ At any point you may return to the main menu with keyword 'return', and exit/sto
 ![image](https://user-images.githubusercontent.com/61268356/140006314-2dbdf94f-ab22-45fe-8eb0-d394807a76ac.png)
 
 **Addendum**
+Phase 2 requirements have been implemented into the OS simulator. These include memory management, IO interrupts, parent-child relations, and multithreading.
