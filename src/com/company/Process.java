@@ -9,6 +9,7 @@ public class Process extends Thread{
     public static int resource = 0;
     private PCB current;
 
+
     /**Value of memorySize to be used as comparison against memory requirements of new processes
      * If memorySize - (used memory) is more than new job memory requirement, job can enter READY state (queue)
      * Else process remains in NEW queue (if spawned) or WAITING queue (if trying to re-enter READY state)**/
@@ -53,18 +54,11 @@ public class Process extends Thread{
         return Process;
     }
 
+
+
     //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
     /**public void fork(PCB child, boolean wait) throws IOException{
         child.setParent(current);
         current.addChild(child);
     }**/
-
-    public void run(){
-        try{
-            System.out.println("Thread " + Thread.currentThread().getId() + " is now running...");
-        }catch(Exception e){
-            System.out.println("Exception is caught");
-        }
-    }
-
 }

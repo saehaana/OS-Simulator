@@ -12,8 +12,9 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         //Process class objects
         Process process = new Process();
-        Process thread1 = new Process();
-        Process thread2 = new Process();
+        ThreadTest thread1 = new ThreadTest("Thread-1");
+        ThreadTest thread2 = new ThreadTest("Thread-2");
+
         thread1.start();
         thread2.start();
 
@@ -99,11 +100,11 @@ public class Main {
                             process.setNumProcesses(numProcesses);
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
-                                System.out.println("Process " + i + " given pid..");
-                                pcbCalculator.setPid(getRandomNumber(1,500));
+                                System.out.println("Process " + i + " given ppid..");
+                                pcbCalculator.setPPid(getRandomNumber(1,500));
                                 pcbCalculator.setState("NEW");
-                                System.out.println(pcbCalculator.getPid());
-                                calculatorPidList.add(pcbCalculator.getPid());
+                                System.out.println(pcbCalculator.getPPid());
+                                calculatorPidList.add(pcbCalculator.getPPid());
                                 calculatorStateList.add(pcbCalculator.getState());
                             }
                             System.out.println("------------------------------");
@@ -122,9 +123,9 @@ public class Main {
                                     System.out.println(Process.memorySize + " MB left for other processes");
                                 }
                                 if(currLine.equals("FORK")) {
-                                    pcbCalculator.setPPid(pcbCalculator.getPid());
+                                    pcbCalculator.setPid(pcbCalculator.getPPid());
                                     process.setCycle(getRandomNumber(5,25));
-                                    System.out.println("\nProcess forked, parent process " + pcbCalculator.getPid() + " attributes given to child process " + pcbCalculator.getPPid() + "\n");
+                                    System.out.println("\nProcess forked, parent process " + pcbCalculator.getPPid() + " attributes given to child process " + pcbCalculator.getPid() + "\n");
                                 }
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
@@ -146,10 +147,10 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbGame.setPid(getRandomNumber(1,500));
+                                pcbGame.setPPid(getRandomNumber(1,500));
                                 pcbGame.setState("NEW");
-                                System.out.println(pcbGame.getPid());
-                                gamePidList.add(pcbGame.getPid());
+                                System.out.println(pcbGame.getPPid());
+                                gamePidList.add(pcbGame.getPPid());
                                 gameStateList.add(pcbGame.getState());
                             }
                             System.out.println("Operations for given processes are: ");
@@ -189,8 +190,8 @@ public class Main {
                                 System.out.println("Process " + i + " given pid..");
                                 pcbMicrosoftWord.setPid(getRandomNumber(1,100));
                                 pcbMicrosoftWord.setState("NEW");
-                                System.out.println(pcbMicrosoftWord.getPid());
-                                microsoftwordPidList.add(pcbMicrosoftWord.getPid());
+                                System.out.println(pcbMicrosoftWord.getPPid());
+                                microsoftwordPidList.add(pcbMicrosoftWord.getPPid());
                                 microsoftwordStateList.add(pcbMicrosoftWord.getState());
                             }
                             System.out.println("------------------------------");
