@@ -34,4 +34,6 @@ At any point you may return to the main menu with keyword 'return', and exit/sto
 
 **Addendum**
 
+-----------------------------------
+
 Phase 2 requirements have been implemented into the OS simulator. These include memory management, IO interrupts, parent-child relations, and multithreading.
