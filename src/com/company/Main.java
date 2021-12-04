@@ -111,8 +111,8 @@ public class Main {
                             while((currLine = brCalculatorLoad.readLine()) != null){
                                 if(currLine.equals("-50")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize + numProcesses*memory) > 0){
-                                        Process.memorySize = Process.memorySize + numProcesses*memory;
+                                    if((Process.memorySize + numProcesses * memory) > 0){
+                                        Process.memorySize = Process.memorySize + numProcesses * memory;
                                         pcbCalculator.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
@@ -155,8 +155,8 @@ public class Main {
                             while ((currLine = brGameLoad.readLine()) != null) {
                                 if(currLine.equals("100")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize - memory) > memory){
-                                        Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize + numProcesses * memory) > 0){
+                                        Process.memorySize = Process.memorySize + numProcesses * memory;
                                         pcbGame.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
@@ -192,8 +192,8 @@ public class Main {
                             while ((currLine = brMicrosoftWordLoad.readLine()) != null) {
                                 if(currLine.equals("30")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize - memory) > memory){
-                                        Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize + numProcesses * memory) > 0){
+                                        Process.memorySize = Process.memorySize + numProcesses * memory;
                                         pcbMicrosoftWord.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
@@ -229,8 +229,8 @@ public class Main {
                             while ((currLine = brStorageLoad.readLine()) != null) {
                                 if(currLine.equals("30")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize - memory) > memory){
-                                        Process.memorySize = Process.memorySize - memory;
+                                    if((Process.memorySize + numProcesses * memory) > 0){
+                                        Process.memorySize = Process.memorySize + numProcesses * memory;
                                         pcbStorage.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
