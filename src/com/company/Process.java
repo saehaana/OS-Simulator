@@ -14,7 +14,6 @@ public class Process extends Thread{
      * Else process remains in NEW queue (if spawned) or WAITING queue (if trying to re-enter READY state)**/
     public static int memorySize = 1024;
 
-
     /**Program will read program file/template as input
      * Input will generate processes of random cycle length for each operation
      * Operations include:
@@ -62,7 +61,7 @@ public class Process extends Thread{
 
     public void run(){
         try{
-            System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+            System.out.println("Thread " + Thread.currentThread().getId() + " is now running...");
         }catch(Exception e){
             System.out.println("Exception is caught");
         }

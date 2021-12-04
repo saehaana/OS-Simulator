@@ -142,6 +142,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Game")) {
                             System.out.println("How many processes would you like to create?");
                             int numProcesses = scanner.nextInt();
+                            process.setNumProcesses(numProcesses);
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
@@ -151,17 +152,20 @@ public class Main {
                                 gamePidList.add(pcbGame.getPid());
                                 gameStateList.add(pcbGame.getState());
                             }
+                            System.out.println("Operations for given processes are: ");
                             System.out.println("------------------------------");
                             while ((currLine = brGameLoad.readLine()) != null) {
-                                if(currLine.equals("100")){
+                                if(currLine.equals("-100")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize + numProcesses * memory) > 0){
-                                        Process.memorySize = Process.memorySize + numProcesses * memory;
+                                    if((Process.memorySize + (numProcesses*memory)) > 0){
+                                        Process.memorySize = Process.memorySize + (numProcesses*memory);
                                         pcbGame.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
                                         pcbGame.setState("WAITING");
                                     }
+                                    System.out.println(numProcesses * memory + " MB allocated to " + processName + " process");
+                                    System.out.println(Process.memorySize + " MB left for other processes");
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -179,6 +183,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Microsoft Word")) {
                             System.out.println("How many processes would you like to create?");
                             int numProcesses = scanner.nextInt();
+                            process.setNumProcesses(numProcesses);
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
@@ -190,7 +195,7 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             while ((currLine = brMicrosoftWordLoad.readLine()) != null) {
-                                if(currLine.equals("30")){
+                                if(currLine.equals("-30")){
                                     int memory = Integer.parseInt(currLine);
                                     if((Process.memorySize + numProcesses * memory) > 0){
                                         Process.memorySize = Process.memorySize + numProcesses * memory;
@@ -199,6 +204,8 @@ public class Main {
                                     if((Process.memorySize - memory) < memory){
                                         pcbMicrosoftWord.setState("WAITING");
                                     }
+                                    System.out.println(numProcesses * memory + " MB allocated to " + processName + " process");
+                                    System.out.println(Process.memorySize + " MB left for other processes");
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -216,6 +223,7 @@ public class Main {
                         if (processName.equalsIgnoreCase("Storage")) {
                             System.out.println("How many processes would you like to create?");
                             int numProcesses = scanner.nextInt();
+                            process.setNumProcesses(numProcesses);
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
@@ -227,7 +235,7 @@ public class Main {
                             }
                             System.out.println("------------------------------");
                             while ((currLine = brStorageLoad.readLine()) != null) {
-                                if(currLine.equals("30")){
+                                if(currLine.equals("-30")){
                                     int memory = Integer.parseInt(currLine);
                                     if((Process.memorySize + numProcesses * memory) > 0){
                                         Process.memorySize = Process.memorySize + numProcesses * memory;
@@ -236,6 +244,8 @@ public class Main {
                                     if((Process.memorySize - memory) < memory){
                                         pcbStorage.setState("WAITING");
                                     }
+                                    System.out.println(numProcesses * memory + " MB allocated to " + processName + " process");
+                                    System.out.println(Process.memorySize + " MB left for other processes");
                                 }
                                 if (currLine.equals("CALCULATE")) {
                                     process.setCycle(getRandomNumber(5, 100));
@@ -375,6 +385,7 @@ public class Main {
                                             CriticalSection.semaphore.acquire();
                                             System.out.println("Pid " + gamePidList.get(i) + " acquired lock");
                                             Process.resource++;
+                                            CriticalSection.semaphore.release();
                                         }
                                     }catch(InterruptedException e){
                                         System.out.println(e);
@@ -387,6 +398,14 @@ public class Main {
                                         Process.resource++;
                                     }
                                     CriticalSection.semaphore.release();
+                                }
+                                if (currLine.equals("+100")) {
+                                    int memory = Integer.parseInt(currLine);
+                                    if ((Process.memorySize + process.getNumProcesses() * memory) <= 1024) {
+                                        Process.memorySize = Process.memorySize + process.getNumProcesses() * memory;
+                                        System.out.println(process.getNumProcesses() * memory + " MB reallocated to total memory");
+                                        System.out.println(Process.memorySize + " MB left for other processes");
+                                    }
                                 }
                             }
                         }
@@ -452,6 +471,14 @@ public class Main {
                                     }
                                     CriticalSection.semaphore.release();
                                 }
+                                if (currLine.equals("+30")) {
+                                    int memory = Integer.parseInt(currLine);
+                                    if ((Process.memorySize + process.getNumProcesses() * memory) <= 1024) {
+                                        Process.memorySize = Process.memorySize + process.getNumProcesses() * memory;
+                                        System.out.println(process.getNumProcesses() * memory + " MB reallocated to total memory");
+                                        System.out.println(Process.memorySize + " MB left for other processes");
+                                    }
+                                }
                             }
                         }
                         if (processName.equalsIgnoreCase("run storage")) {
@@ -515,6 +542,14 @@ public class Main {
                                         Process.resource++;
                                     }
                                     CriticalSection.semaphore.release();
+                                }
+                                if (currLine.equals("+30")) {
+                                    int memory = Integer.parseInt(currLine);
+                                    if ((Process.memorySize + process.getNumProcesses() * memory) <= 1024) {
+                                        Process.memorySize = Process.memorySize + process.getNumProcesses() * memory;
+                                        System.out.println(process.getNumProcesses() * memory + " MB reallocated to total memory");
+                                        System.out.println(Process.memorySize + " MB left for other processes");
+                                    }
                                 }
                             }
                         }
