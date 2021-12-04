@@ -14,8 +14,9 @@ public class Main {
         Process process = new Process();
         Process thread1 = new Process();
         Process thread2 = new Process();
-        Process thread3 = new Process();
-        Process thread4 = new Process();
+        thread1.start();
+        thread2.start();
+
 
         //PCB class objects
         PCB pcbCalculator = new PCB();
@@ -51,14 +52,14 @@ public class Main {
         List<String> storageStateList = new ArrayList<>();
 
         //Template files
-        BufferedReader brCalculatorLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
-        BufferedReader brCalculatorRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
-        BufferedReader brGameLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
-        BufferedReader brGameRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
-        BufferedReader brMicrosoftWordLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
-        BufferedReader brMicrosoftWordRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
-        BufferedReader brStorageLoad = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
-        BufferedReader brStorageRun = new BufferedReader(new FileReader("C:\\Users\\ccc\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
+        BufferedReader brCalculatorLoad = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
+        BufferedReader brCalculatorRun = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Calculator.txt"));
+        BufferedReader brGameLoad = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
+        BufferedReader brGameRun = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Game.txt"));
+        BufferedReader brMicrosoftWordLoad = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
+        BufferedReader brMicrosoftWordRun = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\MicrosoftWord.txt"));
+        BufferedReader brStorageLoad = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
+        BufferedReader brStorageRun = new BufferedReader(new FileReader("C:\\Users\\Austin\\Downloads\\School\\6 Fall 2021\\CMSC 312\\cmsc312\\Storage.txt"));
 
         System.out.println("****************************************");
         System.out.println("Welcome to Ausawin's OS simulator!");
@@ -78,8 +79,6 @@ public class Main {
                 }
                 case 1 -> {
                     System.out.println("You chose option 1");
-                    thread1.start();
-                    thread2.start();
                     System.out.println("Load different programs from the list below by typing the program name");
                     System.out.println("To run a program type 'run *program* (ignore ' and * characters)");
                     System.out.println("To minimize a program type 'min *program* (ignore ' and * characters)");
@@ -97,6 +96,7 @@ public class Main {
                         if(processName.equalsIgnoreCase("Calculator")){
                             System.out.println("How many processes would you like to create?");
                             int numProcesses = scanner.nextInt();
+                            process.setNumProcesses(numProcesses);
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
@@ -111,17 +111,20 @@ public class Main {
                             while((currLine = brCalculatorLoad.readLine()) != null){
                                 if(currLine.equals("-50")){
                                     int memory = Integer.parseInt(currLine);
-                                    if((Process.memorySize + memory) > memory){
-                                        Process.memorySize = Process.memorySize + memory;
+                                    if((Process.memorySize + numProcesses*memory) > 0){
+                                        Process.memorySize = Process.memorySize + numProcesses*memory;
                                         pcbCalculator.setState("READY");
                                     }
                                     if((Process.memorySize - memory) < memory){
                                         pcbCalculator.setState("WAITING");
                                     }
-                                    System.out.println(Process.memorySize + " MB allocated to process");
+                                    System.out.println(numProcesses * memory + " MB allocated to " + processName + " process");
+                                    System.out.println(Process.memorySize + " MB left for other processes");
                                 }
                                 if(currLine.equals("FORK")) {
-
+                                    pcbCalculator.setPPid(pcbCalculator.getPid());
+                                    process.setCycle(getRandomNumber(5,25));
+                                    System.out.println("\nProcess forked, parent process " + pcbCalculator.getPid() + " attributes given to child process " + pcbCalculator.getPPid() + "\n");
                                 }
                                 if(currLine.equals("CALCULATE")){
                                     process.setCycle(getRandomNumber(5,100));
@@ -299,6 +302,7 @@ public class Main {
                                             CriticalSection.semaphore.acquire();
                                             System.out.println("Pid " + calculatorPidList.get(i) + " acquired lock");
                                             Process.resource++;
+                                            CriticalSection.semaphore.release();
                                         }
                                     } catch (InterruptedException e) {
                                         System.out.println(e);
@@ -314,9 +318,10 @@ public class Main {
                                 }
                                 if (currLine.equals("+50")) {
                                     int memory = Integer.parseInt(currLine);
-                                    if ((Process.memorySize + memory) <= 1024) {
-                                        Process.memorySize = Process.memorySize + memory;
-                                        System.out.println(memory + " MB reallocated");
+                                    if ((Process.memorySize + process.getNumProcesses() * memory) <= 1024) {
+                                        Process.memorySize = Process.memorySize + process.getNumProcesses() * memory;
+                                        System.out.println(process.getNumProcesses() * memory + " MB reallocated to total memory");
+                                        System.out.println(Process.memorySize + " MB left for other processes");
                                     }
                                 }
                             }

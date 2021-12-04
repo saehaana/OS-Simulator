@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class PCB{
     private static int pid;
+    private static int ppid;
     private static int numChildren;
     private String State;
 
@@ -42,7 +43,15 @@ public class PCB{
         return pid;
     }
 
-    public void setParent(PCB parent) {
+    public int setPPid(int newPPid){
+        this.ppid = newPPid;
+        return newPPid;
+    }
+
+    public int getPPid(){
+        return ppid;
+    }
+    /**public void setParent(PCB parent) {
         this.parent = parent;
     }
     public Process getParent(){
@@ -76,6 +85,6 @@ public class PCB{
     }
     public void removeChild(int i){
         getNumChildren().get(i).exit();
-    }
+    }**/
 }
 

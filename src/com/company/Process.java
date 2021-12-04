@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Process extends Thread{
     private int Cycle;
+    private int Process;
     public static int resource = 0;
     private PCB current;
 
@@ -12,6 +13,7 @@ public class Process extends Thread{
      * If memorySize - (used memory) is more than new job memory requirement, job can enter READY state (queue)
      * Else process remains in NEW queue (if spawned) or WAITING queue (if trying to re-enter READY state)**/
     public static int memorySize = 1024;
+
 
     /**Program will read program file/template as input
      * Input will generate processes of random cycle length for each operation
@@ -45,11 +47,18 @@ public class Process extends Thread{
         }
     }
 
+    public void setNumProcesses(int numProcess){
+        this.Process = numProcess;
+    }
+    public int getNumProcesses(){
+        return Process;
+    }
+
     //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
-    public void fork(PCB child, boolean wait) throws IOException{
+    /**public void fork(PCB child, boolean wait) throws IOException{
         child.setParent(current);
         current.addChild(child);
-    }
+    }**/
 
     public void run(){
         try{
