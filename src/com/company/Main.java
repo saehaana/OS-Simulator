@@ -12,12 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         //Process class objects
         Process process = new Process();
-        ThreadTest thread1 = new ThreadTest("Thread-1");
-        ThreadTest thread2 = new ThreadTest("Thread-2");
-
-        thread1.start();
-        thread2.start();
-
 
         //PCB class objects
         PCB pcbCalculator = new PCB();
@@ -25,16 +19,16 @@ public class Main {
         PCB pcbMicrosoftWord = new PCB();
         PCB pcbStorage = new PCB();
 
-        //Critical Section class objects
-
         //Scheduler class objects
         Scheduler scheduler = new Scheduler();
-
-        //Dispatcher class objects
 
         //Other variables and objects
         String currLine;
         int menuSelection;
+        ThreadTest thread1 = new ThreadTest("Thread-1");
+        ThreadTest thread2 = new ThreadTest("Thread-2");
+        //thread1.start();
+        //thread2.start();
 
         ArrayList<Integer> runTime = new ArrayList<>();
         ArrayList<Integer> waitTime = new ArrayList<>();
@@ -128,11 +122,13 @@ public class Main {
                                     System.out.println("\nProcess forked, parent process " + pcbCalculator.getPPid() + " attributes given to child process " + pcbCalculator.getPid() + "\n");
                                 }
                                 if(currLine.equals("CALCULATE")){
+                                    thread1.start();
                                     process.setCycle(getRandomNumber(5,100));
                                     runTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
                                 }
                                 if(currLine.equals("I/O")){
+                                    thread2.start();
                                     process.setCycle(getRandomNumber(11, 82));
                                     waitTime.add(process.getCycle());
                                     System.out.println(currLine + " given " + process.getCycle() + " cycles");
@@ -188,7 +184,7 @@ public class Main {
                             System.out.println(numProcesses + " processes created");
                             for(int i=1;i<=numProcesses;i++){
                                 System.out.println("Process " + i + " given pid..");
-                                pcbMicrosoftWord.setPid(getRandomNumber(1,100));
+                                pcbMicrosoftWord.setPPid(getRandomNumber(1,100));
                                 pcbMicrosoftWord.setState("NEW");
                                 System.out.println(pcbMicrosoftWord.getPPid());
                                 microsoftwordPidList.add(pcbMicrosoftWord.getPPid());
@@ -230,8 +226,8 @@ public class Main {
                                 System.out.println("Process " + i + " given pid..");
                                 pcbStorage.setPid(getRandomNumber(1,500));
                                 pcbStorage.setState("NEW");
-                                System.out.println(pcbStorage.getPid());
-                                storagePidList.add(pcbStorage.getPid());
+                                System.out.println(pcbStorage.getPPid());
+                                storagePidList.add(pcbStorage.getPPid());
                                 storageStateList.add(pcbStorage.getState());
                             }
                             System.out.println("------------------------------");
@@ -286,7 +282,7 @@ public class Main {
                                             System.out.println("Waiting...");
                                             process.setCycle(5);
                                             process.waitCycle(process.getCycle());
-                                            Thread.sleep(100);
+                                            //Thread.sleep(100);
                                             System.out.println("done\n");
                                         }
                                     }
@@ -557,6 +553,7 @@ public class Main {
 
                         // close program
                         // terminates and/or exits application's process
+
                         /**if (processName.equalsIgnoreCase("close calculator")) {
                             pcbCalculator.setState(null);
                             System.out.println("Calculator closed");
@@ -572,8 +569,8 @@ public class Main {
                         if (processName.equalsIgnoreCase("close storage")) {
                             pcbStorage.setState(null);
                             System.out.println("Storage closed");
-                        }**/
-
+                        }
+                        **/
                         if (processName.equalsIgnoreCase("return")) {
                             System.out.println("Returning to main menu...\n");
                             System.out.println("Choose any of the options below by pressing the corresponding number");

@@ -1,8 +1,13 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class ThreadTest extends Thread{
     private Thread t;
     private final String threadName;
+    Process process = new Process();
+    ArrayList<Integer> runTime = new ArrayList<>();
+    ArrayList<Integer> waitTime = new ArrayList<>();
 
     ThreadTest(String name){
         threadName = name;
@@ -18,15 +23,14 @@ public class ThreadTest extends Thread{
     public void run(){
         System.out.println("Running " + threadName);
         try{
-            for(int i = 4; i > 0; i--) {
-                System.out.println("Thread: " + threadName + ", " + i);
-                // Let the thread sleep for a while.
-                Thread.sleep(50);
-            }
-        }catch(InterruptedException e){
+            process.setCycle(getRandomNumber(5,100));
+            Thread.sleep(25);
 
+            } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
     }
-
-
+    public static int getRandomNumber(int min, int max){
+        return (int) (Math.random() * (max-min) + min);
+    }
 }
