@@ -1,14 +1,11 @@
 package com.company;
 
-import java.io.IOException;
 import java.util.*;
 
 public class Process extends Thread{
     private int Cycle;
     private int Process;
     public static int resource = 0;
-    private PCB current;
-
 
     /**Value of memorySize to be used as comparison against memory requirements of new processes
      * If memorySize - (used memory) is more than new job memory requirement, job can enter READY state (queue)
@@ -53,12 +50,4 @@ public class Process extends Thread{
     public int getNumProcesses(){
         return Process;
     }
-
-
-
-    //creates new process (child process), which runs concurrently with process that makes fork() call (parent process)
-    /**public void fork(PCB child, boolean wait) throws IOException{
-        child.setParent(current);
-        current.addChild(child);
-    }**/
 }
