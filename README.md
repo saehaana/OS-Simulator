@@ -48,11 +48,11 @@ Total memory size of 1024mb (memorySize) was given to the OS and simulated in th
 
 *total memory being deallocated for process
 
-[![image.png](https://i.postimg.cc/GmYrMrSG/image.png)](https://postimg.cc/qNk9qfrv)
+[![image.png](https://i.postimg.cc/P52GVxQL/image.png)](https://postimg.cc/k26hB7Z9)
 
 *memory allocated back to total memory after the end of a process run
 
-[![image.png](https://i.postimg.cc/mg3Jzr5X/image.png)](https://postimg.cc/3kRnz37m)
+[![image.png](https://i.postimg.cc/tRxjR9pf/image.png)](https://postimg.cc/vDbj3F1L)
 
 **IO Interrupts**
 
