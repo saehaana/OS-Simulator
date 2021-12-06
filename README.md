@@ -37,3 +37,11 @@ At any point you may return to the main menu with keyword 'return', and exit/sto
 -----------------------------------
 
 Phase 2 requirements have been implemented into the OS simulator. These include memory management, IO interrupts, parent-child relations, and multithreading.
+
+**Memory Management**
+
+Total memory size of 1024mb (memorySize) was given to the OS and simulated in the form of an integer located within Process.java. Since memorySize was of int type, basic operations such as allocate and deallocating with +/- operations was implemented. In addition, all templates had fixed memory sizes that reallocated memory to their process from memorySize and was stored as a number as indicated below
+
+*Note the +/- operators next to the memory numbers; -50 indicates 50mb of memory was taken away from total memory and allocated to this process, with +50 giving 50mb back to total memory
+
+[![image.png](https://i.postimg.cc/2yT2wqnT/image.png)](https://postimg.cc/8fJRkzKr)
